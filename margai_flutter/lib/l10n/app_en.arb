@@ -52,5 +52,9 @@
     "listening": "Listening...",
     "tapToSpeak": "Tap the microphone to start speaking",
     "speechNotAvailable": "Speech recognition not available",
-    "textCopiedToClipboard": "Text copied to clipboard"
+    "textCopiedToClipboard": "Text copied to clipboard",
+    "loginToYourAccount": "Login to your account",
+    "rememberMe": "Remember Me",
+    "cancel": "Cancel",
+    "setNewPassword": "Set New Password"
 } 

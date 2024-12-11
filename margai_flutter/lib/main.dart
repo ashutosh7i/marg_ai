@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:margai_flutter/screens/splash/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -123,7 +124,7 @@ class MyApp extends StatelessWidget {
           }
 
           return snapshot.data == true
-              ? const HomeScreen()
+              ? const OnboardingScreen() // forgot password screen
               : const LoginScreen();
         },
       ),

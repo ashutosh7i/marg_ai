@@ -52,5 +52,9 @@
     "listening": "सुन रहा हूं...",
     "tapToSpeak": "बोलने के लिए माइक पर टैप करें",
     "speechNotAvailable": "स्पीच रिकग्निशन उपलब्ध नहीं है",
-    "textCopiedToClipboard": "टेक्स्ट क्लिपबोर्ड पर कॉपी किया गया"
+    "textCopiedToClipboard": "टेक्स्ट क्लिपबोर्ड पर कॉपी किया गया",
+    "loginToYourAccount": "अपने खाते में लॉग इन करें",
+    "rememberMe": "मुझे याद रखें",
+    "cancel": "रद्द करें",
+    "setNewPassword": "नया पासवर्ड सेट करें"
 } 

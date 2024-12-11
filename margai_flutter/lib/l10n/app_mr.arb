@@ -47,5 +47,9 @@
     "successfullyUpdated": "यशस्वीरित्या अपडेट केले",
     "home": "होम",
     "dashboard": "डॅशबोर्ड",
-    "welcomeToDashboard": "तुमच्या डॅशबोर्डवर स्वागत आहे"
+    "welcomeToDashboard": "तुमच्या डॅशबोर्डवर स्वागत आहे",
+    "loginToYourAccount": "आपल्या खात्यात लॉग इन करा",
+    "rememberMe": "मला लक्षात ठेवा",
+    "cancel": "रद्द करा",
+    "setNewPassword": "नवीन पासवर्ड सेट करा"
 } 

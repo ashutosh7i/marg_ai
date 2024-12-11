@@ -5,43 +5,51 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/internalization/language_selector.dart';
 import 'login_screen.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+class NewPasswordScreen extends StatefulWidget {
+  final String resetToken;
+
+  const NewPasswordScreen({super.key, required this.resetToken});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+  State<NewPasswordScreen> createState() => _NewPasswordScreenState();
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _newPasswordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
+  bool _obscureNewPassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _newPasswordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  Future<void> _requestOTP() async {
+  Future<void> _resetPassword() async {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isLoading = true);
 
     try {
-      await context.read<AuthService>().requestPasswordReset(
-            _emailController.text,
+      await context.read<AuthService>().resetPassword(
+            widget.resetToken,
+            _newPasswordController.text,
           );
       if (!mounted) return;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+        (route) => false,
+      );
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content: Text(AppLocalizations.of(context)!.otpSentSuccessfully)),
+            content:
+                Text(AppLocalizations.of(context)!.passwordResetSuccessful)),
       );
-      // Navigate to OTP verification screen
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => const OtpVerificationScreen()),
-      // );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -78,8 +86,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
               child: Image.asset(
                 'assets/images/logo1.png',
-                width: 300,
-                height: 300,
+                width: 200,
+                height: 200,
               ),
             ),
           ),
@@ -87,7 +95,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: 500,
-              height: 400,
+              height: 500,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
@@ -99,37 +107,83 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 10),
                       Text(
-                        l10n.forgotPassword,
+                        l10n.setNewPassword,
                         style: const TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
-                        controller: _emailController,
+                        controller: _newPasswordController,
+                        obscureText: _obscureNewPassword,
                         decoration: InputDecoration(
-                          labelText: l10n.email,
+                          labelText: l10n.newPassword,
                           labelStyle: TextStyle(color: Colors.grey[700]),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureNewPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureNewPassword = !_obscureNewPassword;
+                              });
+                            },
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return l10n.pleaseEnterEmail;
+                            return l10n.pleaseEnterPassword;
                           }
-                          if (!value.contains('@')) {
-                            return l10n.pleaseEnterValidEmail;
+                          if (value.length < 6) {
+                            return l10n.passwordTooShort;
                           }
                           return null;
                         },
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _confirmPasswordController,
+                        obscureText: _obscureConfirmPassword,
+                        decoration: InputDecoration(
+                          labelText: l10n.confirmNewPassword,
+                          labelStyle: TextStyle(color: Colors.grey[700]),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword =
+                                    !_obscureConfirmPassword;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return l10n.pleaseConfirmPassword;
+                          }
+                          if (value != _newPasswordController.text) {
+                            return l10n.passwordsDoNotMatch;
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 24),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: ElevatedButton(
-                          onPressed: _isLoading ? null : _requestOTP,
+                          onPressed: _isLoading ? null : _resetPassword,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             foregroundColor: Colors.white,
@@ -148,27 +202,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         Colors.white),
                                   ),
                                 )
-                              : Text(l10n.sendOTP),
+                              : Text(l10n.resetPassword),
                         ),
                       ),
-                      const SizedBox(height: 5),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          l10n.cancel,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
+                      const Spacer(),
+                      const LanguageSelector(),
                     ],
                   ),
                 ),
