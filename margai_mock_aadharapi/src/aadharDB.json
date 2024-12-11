@@ -1,0 +1,96 @@
+[
+    {
+      "aadhar no": "618018270812",
+      "Phone no": "9098788770",
+      "date": {
+        "name": "Ishika Garg",
+        "dob": "2003"
+      },
+      "disability": {
+        "uuid": "GJ2310119740001706",
+        "disability type": "Low Vision",
+        "percentage of disability": 50,
+        "date of issue": "09-09-2016"
+      }
+    },
+    {
+      "aadhar no": "903672780815",
+      "Phone no": "918305147388",
+      "date": {
+        "name": "Samarjeet Singh",
+        "dob": "1983"
+      },
+      "disability": {
+        "uuid": "MH0410619830002360",
+        "disability type": "Locomoter Disability",
+        "percentage of disability": 42,
+        "date of issue": "29-08-2017"
+      }
+    },
+    {
+      "aadhar no": "866686938371",
+      "Phone no": "9179128764",
+      "date": {
+        "name": "Asif Ali",
+        "dob": "1986"
+      },
+      "disability": {
+        "uuid": "PB0710219680033443",
+        "disability type": "Hearing",
+        "percentage of disability": 48,
+        "date of issue": "10-12-2016"
+      }
+    },
+    {
+      "aadhar no": "837287908110",
+      "Phone no": "9993234069",
+      "date": {
+        "name": "Aashutosh Soni",
+        "dob": "2001"
+      },
+      "disability": false
+    },
+    {
+      "aadhar no": "940187083036",
+      "Phone no": "6267888249",
+      "date": {
+        "name": "Himanshu Gurjar",
+        "dob": "2004"
+      },
+      "disability": {
+        "uuid": "MH0410619830002360",
+        "disability type": "Hearing",
+        "percentage of disability": 49,
+        "date of issue": "27-08-2016"
+      }
+    },
+    {
+      "aadhar no": "872607263007",
+      "Phone no": "9589983885",
+      "date": {
+        "name": "Ansh Dube",
+        "dob": "1999"
+      },
+      "disability": {
+        "uuid": "PB0710219680033443",
+        "disability type": "Blindness",
+        "percentage of disability": 51,
+        "date of issue": "13-05-2019"
+      }
+    },
+    {
+      "aadhar no": "729450470919",
+      "Phone no": "9340057701",
+      "date": {
+        "name": "Himanshi Maheshwari",
+        "dob": "2003"
+      },
+      "disability": {
+        "uuid": "GJ2310119740001706",
+        "disability type": "Locomoter Disability",
+        "percentage of disability": 46,
+        "date of issue": "23-10-2018"
+      }
+    }
+  ]
+  
