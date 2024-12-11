@@ -1,26 +1,17 @@
-import home from "@/translations/home";
-import about from "@/translations/about";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import Backend from "i18next-http-backend";
 
-const resources = {
-  en: {
-    home: home.en,
-    about: about.en,
-  },
-  fr: {
-    home: home.fr,
-    about: about.fr,
-  },
-};
-
-i18n.use(initReactI18next).init({
-  resources,
-  lng: "en", // Default language
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false, // React already escapes content
-  },
-});
+i18n
+  .use(Backend)
+  .use(initReactI18next)
+  .init({
+    debug: true,
+    fallbackLng: "en",
+    returnObjects: true,
+    interpolation: {
+      escapeValue: false, // not needed for react as it escapes by default
+    },
+  });
 
 export default i18n;
