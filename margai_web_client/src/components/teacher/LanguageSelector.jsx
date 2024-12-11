@@ -11,11 +11,14 @@ import { useState } from "react";
 
 const languages = [
   { code: "en", label: "English" },
-  { code: "fr", label: "French" },
-  { code: "gu", label: "Gujarati" },
   { code: "hi", label: "Hindi" },
+  { code: "as", label: "Assamese" },
+  { code: "bn", label: "Bengali" },
+  { code: "gu", label: "Gujarati" },
+  { code: "ml", label: "Malayalam" },
   { code: "mr", label: "Marathi" },
   { code: "ta", label: "Tamil" },
+  { code: "te", label: "Telugu" },
 ];
 
 function LanguageSelector() {

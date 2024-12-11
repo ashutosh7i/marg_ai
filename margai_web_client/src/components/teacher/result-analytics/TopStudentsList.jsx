@@ -1,11 +1,12 @@
 import { topPerformingStudents as topStudents } from "@/data/data";
-
+import { useTranslation } from "react-i18next";
 function TopStudentsList() {
+  const { t } = useTranslation("teachers-top-students-list");
   return (
     <div className="mb-6 px-20">
       <div className="rounded-lg bg-white p-6 shadow-md">
         <h2 className="mb-6 text-3xl font-bold text-[#303972]">
-          Top 10 Students
+          {t("heading")}
         </h2>
 
         <ul className="grid grid-cols-1 gap-6">
