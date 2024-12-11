@@ -5,7 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/internalization/language_selector.dart';
 import 'signup_screen.dart';
 import 'reset_password_screen.dart';
-import '../home_screen.dart';
+import '../main_layout.dart';
+import '../user/create_profile_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -39,10 +40,24 @@ class _LoginScreenState extends State<LoginScreen> {
             _passwordController.text,
           );
       if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      
+      final authService = context.read<AuthService>();
+      final userProfile = await authService.getProfile();
+      final bool isProfileCompleted = true;
+
+      if (!mounted) return;
+
+      if (isProfileCompleted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MainLayout()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const CreateProfileScreen()),
+        );
+      }
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

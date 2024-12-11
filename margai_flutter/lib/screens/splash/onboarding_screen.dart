@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:margai_flutter/screens/home_screen.dart';
+import 'package:margai_flutter/screens/auth/login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -115,7 +115,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
                   );
                 },
               ),

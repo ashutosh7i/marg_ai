@@ -10,6 +10,8 @@ import 'providers/language_provider.dart';
 import 'providers/accessibility_provider.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/home_screen.dart';
+import 'package:margai_flutter/screens/main_layout.dart';
+import 'package:margai_flutter/screens/user/create_profile_screen.dart'; // You'll need to create this
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -112,21 +114,83 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      home: FutureBuilder<bool>(
-        future: context.read<AuthService>().isLoggedIn(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
+      home: const InitialLoadingScreen(),
+    );
+  }
+}
+
+class InitialLoadingScreen extends StatefulWidget {
+  const InitialLoadingScreen({super.key});
+
+  @override
+  State<InitialLoadingScreen> createState() => _InitialLoadingScreenState();
+}
+
+class _InitialLoadingScreenState extends State<InitialLoadingScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkAuthState();
+  }
+
+  Future<void> _checkAuthState() async {
+    final authService = context.read<AuthService>();
+    
+    try {
+      final isLoggedIn = await authService.isLoggedIn();
+      
+      if (!mounted) return;
+
+      if (isLoggedIn) {
+        // User is logged in, check if profile is completed
+        try {
+          final userProfile = await authService.getProfile();
+          final bool isProfileCompleted = true; // You can modify this condition based on your requirements
+          
+          if (!mounted) return;
+
+          if (isProfileCompleted) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const MainLayout()),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const CreateProfileScreen()),
             );
           }
+        } catch (e) {
+          // If there's an error fetching profile, assume profile needs to be created
+          if (!mounted) return;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const CreateProfileScreen()),
+          );
+        }
+      } else {
+        // User is not logged in, show onboarding
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+        );
+      }
+    } catch (e) {
+      // Handle any errors during the auth check
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+      );
+    }
+  }
 
-          return snapshot.data == true
-              ? const OnboardingScreen() // forgot password screen
-              : const LoginScreen();
-        },
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }

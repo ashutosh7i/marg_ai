@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/internalization/language_selector.dart';
+import '../auth/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -236,6 +237,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 l10n.updateProfile,
                                 style: const TextStyle(fontSize: 16),
                               ),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    OutlinedButton(
+                      onPressed: _isLoading
+                          ? null
+                          : () async {
+                              try {
+                                await context.read<AuthService>().logout();
+                                if (!mounted) return;
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ),
+                                  (route) => false,
+                                );
+                              } catch (e) {
+                                if (!mounted) return;
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.toString())),
+                                );
+                              }
+                            },
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.red,
+                        side: const BorderSide(color: Colors.red),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: Center(
+                          child: Text(
+                            l10n.logout,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ),
                       ),
                     ),
                   ],
