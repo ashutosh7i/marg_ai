@@ -12,60 +12,60 @@ const generateToken = (id) => {
   });
 };
 
-// // Signup controller
-// const signup = async (req, res) => {
-//   try {
-//     console.log('Signup process initiated');
-//     const { username, email, password } = req.body;
-//     console.log(`Received signup request for username: ${username}, email: ${email}`);
+// Signup controller
+const signup = async (req, res) => {
+  try {
+    console.log('Signup process initiated');
+    const { username, email, password } = req.body;
+    console.log(`Received signup request for username: ${username}, email: ${email}`);
 
-//     // Check if user already exists
-//     console.log('Checking if user already exists in the database');
-//     const existingUser = await User.findOne({
-//       where: {
-//         [Op.or]: [{ email }, { username }]
-//       }
-//     });
+    // Check if user already exists
+    console.log('Checking if user already exists in the database');
+    const existingUser = await User.findOne({
+      where: {
+        [Op.or]: [{ email }, { username }]
+      }
+    });
 
-//     if (existingUser) {
-//       console.log(`User with email ${email} or username ${username} already exists`);
-//       return res.status(400).json({
-//         message: 'User with this email or username already exists'
-//       });
-//     }
+    if (existingUser) {
+      console.log(`User with email ${email} or username ${username} already exists`);
+      return res.status(400).json({
+        message: 'User with this email or username already exists'
+      });
+    }
 
-//     console.log('No existing user found, proceeding with user creation');
+    console.log('No existing user found, proceeding with user creation');
 
-//     // Create new user
-//     console.log('Creating new user in the database');
-//     const user = await User.create({
-//       username,
-//       email,
-//       password
-//     });
-//     console.log(`New user created with ID: ${user.id}`);
+    // Create new user
+    console.log('Creating new user in the database');
+    const user = await User.create({
+      username,
+      email,
+      password
+    });
+    console.log(`New user created with ID: ${user.id}`);
 
-//     // Generate token
-//     console.log('Generating JWT token for the new user');
-//     const token = generateToken(user.id);
-//     console.log('JWT token generated successfully');
+    // Generate token
+    console.log('Generating JWT token for the new user');
+    const token = generateToken(user.id);
+    console.log('JWT token generated successfully');
 
-//     console.log('Sending successful response');
-//     res.status(201).json({
-//       message: 'User created successfully',
-//       token,
-//       user: {
-//         id: user.id,
-//         username: user.username,
-//         email: user.email
-//       }
-//     });
-//     console.log('Signup process completed successfully');
-//   } catch (error) {
-//     console.error('Error occurred during signup process:', error);
-//     res.status(500).json({ message: 'Error creating user', error: error.message });
-//   }
-// };
+    console.log('Sending successful response');
+    res.status(201).json({
+      message: 'User created successfully',
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email
+      }
+    });
+    console.log('Signup process completed successfully');
+  } catch (error) {
+    console.error('Error occurred during signup process:', error);
+    res.status(500).json({ message: 'Error creating user', error: error.message });
+  }
+};
 
 // Login controller
 const login = async (req, res) => {
@@ -187,7 +187,7 @@ const resetPassword = async (req, res) => {
 };
 
 module.exports = {
-  // signup,
+  signup,
   login,
   requestPasswordReset,
   resetPassword
