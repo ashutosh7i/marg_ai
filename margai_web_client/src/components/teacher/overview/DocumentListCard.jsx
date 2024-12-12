@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function DocumentListCard({ documents }) {
   const [visibleCount, setVisibleCount] = useState(3);
@@ -7,16 +8,16 @@ function DocumentListCard({ documents }) {
   const handleViewMore = () => {
     setVisibleCount((prevCount) => (prevCount <= 3 ? 5 : 3));
   };
-
+  const { t } = useTranslation("teacher-document-list-card");
   return (
     <div className="w-full rounded-3xl border bg-white p-6 shadow-md">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-[#333]">Documents</h2>
+        <h2 className="text-xl font-semibold text-[#333]">{t("Documents")}</h2>
         <button
           onClick={handleViewMore}
           className="text-sm font-bold text-[#4D44B5] hover:text-[#4D44B5]/80"
         >
-          {visibleCount <= 3 ? "See All" : "See Less"}
+          {visibleCount <= 3 ? t("See All") : t("See Less")}
         </button>
       </div>
 

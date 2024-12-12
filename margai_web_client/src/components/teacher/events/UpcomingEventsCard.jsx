@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { format } from "date-fns";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 
 const nthNumber = (number) => {
   if (number > 3 && number < 21) return "th";
@@ -22,16 +24,16 @@ function UpcomingExamsCard({ upcomingExams }) {
   const handleViewMore = () => {
     setVisibleCount((prevCount) => (prevCount <= 3 ? 5 : 3));
   };
-
+  const { t } = useTranslation("teacher-events-UpcomingEventsCard");
   return (
     <div className="mx-8 mb-4 rounded-3xl border bg-white p-4 text-card-foreground shadow-sm md:p-6">
       <div className="mb-6 flex items-center justify-between">
-        <h3 className="text-2xl font-bold text-[#303972]">Upcoming Events</h3>
+        <h3 className="text-2xl font-bold text-[#303972]">{t("Upcoming Events")}</h3>
         <button
           onClick={handleViewMore}
           className="text-sx font-bold text-[#4D44B5] hover:text-[#4D44B5]/80"
         >
-          {visibleCount <= 3 ? "See All" : "See Less"}
+          {visibleCount <= 3 ? t("See All") : t("See Less")}
         </button>
       </div>
 
@@ -51,14 +53,14 @@ function UpcomingExamsCard({ upcomingExams }) {
               </h3>
               <div className="flex gap-6">
                 <button className="line-clamp-1 cursor-pointer text-xs font-semibold text-[#4D44B5] underline">
-                  Add Questions
+                  {t("addquestion")}
                 </button>
                 {/*TODO: {new Date(activity.date) < new Date() ? :} */}
                 <span className="text-xs font-semibold text-[#FF9924]">
-                  TODO: Upcoming
+                  {t("todo")}
                 </span>
                 <span className="text-xs font-semibold text-[#FF1515]">
-                  Due Soon
+                  {t("duesoon")}
                 </span>
               </div>
             </div>

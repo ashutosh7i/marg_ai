@@ -1,0 +1,11 @@
+{
+    "selectCategory": "শ্রেণী নির্বাচন করুন:",
+    "classwise": "শ্রেণী অনুসারে",
+    "assessmentwise": "মূল্যায়ন অনুসারে",
+    "studentwise": "ছাত্র অনুসারে",
+    "performance": "কার্যকারিতা বিশ্লেষণ",
+    "subheadingperformance": "শ্রেণীর কর্মক্ষমতা নিয়োগের উপর",
+    "barchart": "বার চার্ট",
+    "linechart": "লাইন চার্ট",
+    "areachart": "এরিয়া চার্ট"
+}

@@ -3,7 +3,7 @@ import Sidebar from "@/components/teacher/Sidebar";
 import TeacherAvatar from "@/components/teacher/TeacherAvatar";
 
 function CreateAssessmentPage() {
-  return (
+    return (
     <>
       <Sidebar />
       <header className="ml-[16.975rem] flex items-center justify-between bg-[#F3F4FF] px-10 py-6">

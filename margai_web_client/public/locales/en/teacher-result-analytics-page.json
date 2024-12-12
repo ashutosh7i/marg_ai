@@ -1,0 +1,11 @@
+{
+    "selectCategory": "Select Categorization:",
+    "classwise": "Class Wise",
+    "assessmentwise": "Assessment Wise",
+    "studentwise": "Student Wise",
+    "performance": "Performance Analysis",
+    "subheadingperformance": "Class Performance Over Assignments",
+    "barchart": "Bar Chart",
+    "linechart": "Line Chart",
+    "areachart": "Area Chart"
+}

@@ -19,6 +19,7 @@ const languages = [
   { code: "mr", label: "Marathi" },
   { code: "ta", label: "Tamil" },
   { code: "te", label: "Telugu" },
+  
 ];
 
 function LanguageSelector() {

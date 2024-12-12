@@ -1,8 +1,11 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { format } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { T } from "react-router/dist/development/fog-of-war-DU_DzpDb";
+import { useTranslation } from "react-i18next";
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
 
@@ -37,12 +40,12 @@ const TeacherScheduleCalendar = () => {
       date.setDate(currentDate.getDate() + i);
       return date;
     });
-
+    const { t } = useTranslation("teacher-events-UpcomingEventsCard");
     return (
       <div className="mt-2">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="mb-6 text-2xl font-bold text-[#303972]">
-            My Calendar
+            {T("mycal")}
           </h2>
 
           <div className="flex gap-2">
@@ -192,7 +195,7 @@ const TeacherScheduleCalendar = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium text-[#303972]">
-                  Start Time
+                  {t("starttime")}
                 </label>
                 <input
                   type="time"
@@ -205,7 +208,7 @@ const TeacherScheduleCalendar = () => {
               </div>
               <div>
                 <label className="text-sm font-medium text-[#303972]">
-                  End Time
+                  {t("endtime")}
                 </label>
                 <input
                   type="time"
@@ -221,7 +224,7 @@ const TeacherScheduleCalendar = () => {
               onClick={handleSaveNote}
               className="mt-2 bg-[#4D44B5] text-white hover:bg-[#4D44B5]/90"
             >
-              Save Note
+              {t("SaveNote")}
             </Button>
           </div>
         </DialogContent>
