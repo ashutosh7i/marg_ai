@@ -1,7 +1,10 @@
-import 'package:margai_flutter/imports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_fgbg/flutter_fgbg.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
 import '../accessibility/accessibility_screen.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class ExamScreen extends StatefulWidget {
   const ExamScreen({super.key});
@@ -11,6 +14,10 @@ class ExamScreen extends StatefulWidget {
 }
 
 class _ExamScreenState extends State<ExamScreen> {
+  List<String> switchEvents = [];
+  int warningCount = 0;
+  bool isBlocked = false;
+
   // Aadhar verification states
   final _aadharController = TextEditingController();
   final _otpController = TextEditingController();
@@ -337,9 +344,92 @@ ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
     if (!examStarted) {
       return _buildSkillSelection();
     } else if (examStarted && !examSubmitted) {
-      return _buildExam();
+      return FGBGNotifier(
+        onEvent: (event) {
+          print('App State Changed: $event'); // Debug print
+          if (event == FGBGType.background) {
+            _handleScreenSwitch();
+          }
+        },
+        child: _buildExamContent(),
+      );
     } else {
       return _buildResultsWithUserInfo();
+    }
+  }
+
+  void _handleScreenSwitch() {
+    setState(() {
+      warningCount++;
+      switchEvents.add('${DateTime.now()}: Screen switch detected');
+    });
+
+    if (warningCount <= 2) {
+      // Show warning
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Warning ${warningCount}/2: Switching screens is not allowed! '
+            'Next violation will block you.',
+          ),
+          backgroundColor: Colors.orange,
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else {
+      // Block user
+      _blockUser();
+    }
+  }
+
+  void _blockUser() {
+    timer?.cancel(); // Stop the exam timer
+    setState(() {
+      isBlocked = true;
+      examSubmitted = true;
+    });
+
+    _sendBlockedNotification();
+  }
+
+  Future<void> _sendBlockedNotification() async {
+    if (_userData == null) return;
+
+    final message = '''
+🚫 EXAM BLOCKED - VIOLATION NOTICE 🚫
+
+Candidate: ${_userData!['date']['name']}
+Skill Assessment: $selectedSkill
+
+Your exam has been terminated and your account has been blocked due to multiple violations.
+
+Violations detected:
+${switchEvents.join('\n')}
+
+This incident has been reported to the administrator.
+Please contact support for further assistance.
+''';
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://20.197.18.36:8000/api/send-sms'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'phoneNo': _userData!['Phone no'],
+          'message': message,
+        }),
+      );
+
+      if (response.statusCode != 200) {
+        throw json.decode(response.body)['error'];
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to send notification: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -484,6 +574,100 @@ ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
         ),
       ),
     );
+  }
+
+  Widget _buildExamContent() {
+    if (isBlocked) {
+      return Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.block,
+                  size: 80,
+                  color: Colors.red,
+                ),
+                SizedBox(height: 24),
+                Text(
+                  'ACCOUNT BLOCKED',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Your account has been blocked due to multiple violations.\n\n'
+                  'Switching screens during the exam is strictly prohibited.\n\n'
+                  'This incident has been reported.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[700],
+                  ),
+                ),
+                SizedBox(height: 24),
+                // Show violation history
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Violation History:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      ...switchEvents.map((event) => Padding(
+                            padding: EdgeInsets.symmetric(vertical: 4),
+                            child: Row(
+                              children: [
+                                Icon(Icons.warning,
+                                    size: 16, color: Colors.orange),
+                                SizedBox(width: 8),
+                                Expanded(child: Text(event)),
+                              ],
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 16,
+                    ),
+                  ),
+                  child: Text(
+                    'Exit Exam',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Return your existing exam UI here
+    return _buildExam(); // This should be your existing exam UI method
   }
 
   Widget _buildExam() {
@@ -766,57 +950,80 @@ ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
               ),
             ),
 
-            SizedBox(height: 16),
-
-            // Performance Graph
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Performance Analysis',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+            // Add Violation History Card if there are any violations
+            if (switchEvents.isNotEmpty) ...[
+              SizedBox(height: 16),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.warning, color: Colors.orange),
+                          SizedBox(width: 8),
+                          Text(
+                            'Screen Switch Violations',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 16),
-                    Container(
-                      height: 200,
-                      child: LineChart(
-                        LineChartData(
-                          gridData: FlGridData(show: false),
-                          titlesData: FlTitlesData(show: false),
-                          borderData: FlBorderData(show: false),
-                          lineBarsData: [
-                            LineChartBarData(
-                              spots: [
-                                FlSpot(0, percentage / 100),
-                                FlSpot(1, 0.8),
-                                FlSpot(2, 0.9),
-                                FlSpot(3, 0.7),
-                                FlSpot(4, percentage / 100),
+                      Divider(),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: switchEvents.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.warning_amber,
+                                  size: 16,
+                                  color: Colors.orange,
+                                ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    switchEvents[index],
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                    ),
+                                  ),
+                                ),
                               ],
-                              isCurved: true,
-                              color: Color(0xFF1B7BAB),
-                              barWidth: 4,
-                              isStrokeCapRound: true,
-                              dotData: FlDotData(show: false),
-                              belowBarData: BarAreaData(
-                                show: true,
-                                color: Color(0xFF1B7BAB).withOpacity(0.1),
+                            ),
+                          );
+                        },
+                      ),
+                      if (isBlocked) ...[
+                        Divider(),
+                        Row(
+                          children: [
+                            Icon(Icons.block, color: Colors.red),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Account was blocked due to multiple violations',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                  ],
+                      ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ],
         ),
       ),
