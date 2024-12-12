@@ -1,33 +1,65 @@
-import LanguageSelector from "@/components/teacher/LanguageSelector";
+import CompletedExamCard from "@/components/teacher/assessments/CompletedExamCard";
+import UpcomingExamCard from "@/components/teacher/assessments/UpcomingExamCard";
 import Sidebar from "@/components/teacher/Sidebar";
-import TeacherAvatar from "@/components/teacher/TeacherAvatar";
-import { Link } from "react-router";
-import { useTranslation } from "react-i18next";
+import { assessmentsData } from "@/data/data";
+import Header from "@/components/teacher/HeaderWithoutSearch";
 
 function AssessmentsPage() {
-  const { t } = useTranslation("teacher-assessments-list-page");
+  const getAssessmentLink = (type) => {
+    switch (type) {
+      case "Objective":
+        return "/teacher/assessments/add-mcq";
+      case "Subjective":
+        return "/teacher/assessments/add-descriptive";
+      case "Viva":
+        return "/teacher/assessments/add-viva";
+      default:
+        return "#";
+    }
+  };
+
   return (
     <>
       <Sidebar />
-      <header className="ml-[16.975rem] flex items-center justify-between bg-[#F3F4FF] px-10 py-6">
-        <h1 className="text-4xl font-bold text-[#303972]">{t("header")}</h1>
-        <div className="flex items-center gap-12">
-          <div className="flex items-center gap-3">
-            {/* Search */}
-            <Link
-              to="/assessments/create"
-              className="rounded-full border-none bg-[#4D44B5] px-4 py-2 text-2xl font-[550] text-white shadow-sm hover:bg-[#4D44B5]/80"
-            >
-              {t("button")}
-            </Link>
+      <Header title="Assessments" />
 
-            {/* Language dropdown */}
-            <LanguageSelector />
-          </div>
-
-          <TeacherAvatar />
+      <main className="ml-[16.975rem] bg-[#F3F4FF] px-10 py-6 pb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-[#303972] text-2xl font-bold">Scheduled: </h2>
+          <button className="text-[#4D44B5] text-sm font-bold">See all</button>
         </div>
-      </header>
+
+        <div className="grid grid-cols-3 gap-4 mb-8">
+          {assessmentsData.map(
+            (a) =>
+              new Date() < new Date(a.endDate) && (
+                <UpcomingExamCard
+                  key={a.id}
+                  assessment={a}
+                  link={getAssessmentLink(a.type)}
+                />
+              )
+          )}
+        </div>
+
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-[#303972] text-2xl font-bold">Ended: </h2>
+          <button className="text-[#4D44B5] text-sm font-bold">See all</button>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 mb-4">
+          {assessmentsData.map(
+            (a) =>
+              new Date() > new Date(a.endDate) && (
+                <CompletedExamCard
+                  key={a.id}
+                  assessment={a}
+                  link={getAssessmentLink(a.type)}
+                />
+              )
+          )}
+        </div>
+      </main>
     </>
   );
 }

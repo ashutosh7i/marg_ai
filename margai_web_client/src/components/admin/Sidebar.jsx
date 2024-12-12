@@ -58,8 +58,6 @@ function Sidebar() {
   ];
 
   const isActiveRoute = (menuPath) => {
-    console.log(menuPath, pathname);
-
     if (menuPath === "/admin") {
       return pathname === "/admin";
     }
@@ -69,12 +67,13 @@ function Sidebar() {
   return (
     <section className="fixed flex h-screen w-[16.975rem] flex-col items-center border border-[#4D44B5] border-r-[#F3F4FF] bg-[#018183] pt-8">
       <Link
-        to="/teacher"
+        to="/admin"
         className="flex h-[2.88656rem] items-center pl-6 justify-center gap-2"
       >
         <img src="/img/logo.svg" alt="logo" height={45} width={45} />
         <h1 className="font-poppins lead text-[2rem] font-bold text-white">
-          {t("Title")}
+          {/* {t("Title")} */}
+          Marg AI
         </h1>
       </Link>
 
@@ -86,7 +85,7 @@ function Sidebar() {
             className={`group w-full flex items-center gap-6 rounded-s-[2.5rem] px-6 py-2 text-lg font-medium hover:bg-[#F3F4FF] hover:text-[#018183] ${
               isActiveRoute(menu.path)
                 ? "bg-[#F3F4FF] text-[#018183]"
-                : "text-[#C1BBEB]"
+                : "text-white"
             }`}
           >
             <img
@@ -107,13 +106,7 @@ function Sidebar() {
                 alt={menu.name}
               />
             )}
-            <h2
-              className={` ${
-                isActiveRoute(menu.path) ? "text-[#018183]" : "text-white"
-              }`}
-            >
-              {menu.name}
-            </h2>
+            <h2>{menu.name}</h2>
           </Link>
         ))}
       </nav>

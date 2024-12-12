@@ -1,5 +1,3 @@
 {
-    "Recent Students":"Recent Students",
-    "View All":"View All",
-    "You have 9 students":"You have 9 students"
+  "temp": "You have <1>{{value}}</1> students"
 }

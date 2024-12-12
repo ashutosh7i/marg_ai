@@ -431,3 +431,234 @@ export const classList = [
   "Class 5-A",
   "Class 5-B",
 ];
+
+export const examSchedule = [
+  {
+    id: 1,
+    title: "Viva Examinations",
+    date: "2024-12-03",
+    class: "Class X",
+  },
+  {
+    id: 2,
+    title: "Subject Quiz",
+    date: "2024-12-08",
+    class: "Class X",
+  },
+  {
+    id: 3,
+    title: "Mid Term Examination",
+    date: "2024-12-03",
+    class: "Class X",
+  },
+  {
+    id: 4,
+    title: "Final Examination",
+    date: "2024-12-08",
+    class: "Class X",
+  },
+];
+
+export const adminExams = [
+  {
+    id: 1,
+    title: "Viva Exam",
+    className: "12-A",
+    date: "2024-12-25",
+  },
+  {
+    id: 2,
+    title: "Practical Exam",
+    className: "10-B",
+    date: "2024-12-25",
+  },
+  {
+    id: 3,
+    title: "Unit Test",
+    className: "9-C",
+    date: "2024-12-25",
+  },
+];
+
+export const assessmentsData = [
+  {
+    id: 1,
+    title: "Mid Term Exam",
+    type: "Objective",
+    postedOn: "2024-12-12",
+    endDate: "2024-12-20",
+    areQuestionsAdded: true,
+    assignedStudentsNum: 30,
+    startingDate: "2024-12-15",
+  },
+  {
+    id: 2,
+    title: "Final Term Exam",
+    type: "Subjective",
+    postedOn: "2024-12-12",
+    endDate: "2024-12-20",
+    areQuestionsAdded: false,
+    assignedStudentsNum: 30,
+    startingDate: "2024-12-15",
+  },
+  {
+    id: 3,
+    title: "Unit Test 1",
+    type: "Objective",
+    postedOn: "2024-12-12",
+    endDate: "2024-12-20",
+    areQuestionsAdded: true,
+    assignedStudentsNum: 30,
+    startingDate: "2024-12-15",
+  },
+  {
+    id: 4,
+    title: "Unit Test 2",
+    type: "Subjective",
+    postedOn: "2024-12-12",
+    endDate: "2024-12-20",
+    areQuestionsAdded: false,
+    assignedStudentsNum: 30,
+    startingDate: "2024-12-15",
+  },
+  {
+    id: 5,
+    title: "Mid Term Exam",
+    type: "Objective",
+    postedOn: "2024-11-12",
+    endDate: "2024-11-20",
+    completedStudentsNum: 20,
+    missingStudentsNum: 10,
+  },
+  {
+    id: 6,
+    title: "Final Term Exam",
+    type: "Subjective",
+    postedOn: "2024-11-12",
+    endDate: "2024-11-20",
+    completedStudentsNum: 20,
+    missingStudentsNum: 10,
+  },
+  {
+    id: 7,
+    title: "Unit Test 1",
+    type: "Objective",
+    postedOn: "2024-11-12",
+    endDate: "2024-11-20",
+    completedStudentsNum: 20,
+    missingStudentsNum: 10,
+  },
+  {
+    id: 8,
+    title: "Unit Test 2",
+    type: "Subjective",
+    postedOn: "2024-11-12",
+    endDate: "2024-11-20",
+    completedStudentsNum: 20,
+    missingStudentsNum: 10,
+  },
+];
+
+export const mockClasses = ["Class 1", "Class 2", "Class 3"];
+export const mockStudents = {
+  "Class 1": [
+    {
+      name: "John Doe",
+      courses: "Math, Science",
+      enrollmentNo: "12345",
+      attendance: "95%",
+      results: [
+        {
+          examName: "Midterm",
+          course: "Math",
+          score: 92,
+          time: "10:00 AM",
+          date: "2023-05-01",
+          status: "Passed",
+        },
+        {
+          examName: "Final",
+          course: "Science",
+          score: 88,
+          time: "2:00 PM",
+          date: "2023-06-01",
+          status: "Passed",
+        },
+      ],
+      performance: {
+        assignments: 90,
+        quizzes: 85,
+        participation: 95,
+        projects: 88,
+      },
+      remarks: "Excellent performance",
+      overallStatus: "Passed",
+    },
+    {
+      name: "Jane Smith",
+      courses: "Math, English",
+      enrollmentNo: "12346",
+      attendance: "90%",
+      results: [
+        {
+          examName: "Midterm",
+          course: "Math",
+          score: 85,
+          time: "11:00 AM",
+          date: "2023-05-01",
+          status: "Passed",
+        },
+        {
+          examName: "Final",
+          course: "English",
+          score: 90,
+          time: "3:00 PM",
+          date: "2023-06-01",
+          status: "Passed",
+        },
+      ],
+      performance: {
+        assignments: 88,
+        quizzes: 82,
+        participation: 90,
+        projects: 85,
+      },
+      remarks: "Good performance",
+      overallStatus: "Passed",
+    },
+  ],
+  "Class 2": [
+    {
+      name: "Alice Johnson",
+      courses: "Science, History",
+      enrollmentNo: "12347",
+      attendance: "85%",
+      results: [
+        {
+          examName: "Midterm",
+          course: "Science",
+          score: 78,
+          time: "10:00 AM",
+          date: "2023-05-01",
+          status: "Passed",
+        },
+        {
+          examName: "Final",
+          course: "History",
+          score: 82,
+          time: "2:00 PM",
+          date: "2023-06-01",
+          status: "Passed",
+        },
+      ],
+      performance: {
+        assignments: 80,
+        quizzes: 75,
+        participation: 85,
+        projects: 80,
+      },
+      remarks: "Satisfactory performance",
+      overallStatus: "Passed",
+    },
+  ],
+};
