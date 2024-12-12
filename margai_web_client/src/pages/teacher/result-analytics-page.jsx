@@ -17,6 +17,7 @@ import {
 import { options, performanceData } from "@/data/data";
 import Header from "@/components/teacher/result-analytics/Header";
 import TopStudentsList from "@/components/teacher/result-analytics/TopStudentsList";
+import { useTranslation } from "react-i18next";
 
 function ResultsAnalyticsPage() {
   const [category, setCategory] = useState("class");
@@ -27,6 +28,7 @@ function ResultsAnalyticsPage() {
   useEffect(() => {
     setSelection(options[category][0]);
   }, [category]);
+  const { t } = useTranslation("teacher-result-analytics-page");
 
   return (
     <>
@@ -41,7 +43,7 @@ function ResultsAnalyticsPage() {
               htmlFor="categorization"
               className="mb-2 block text-sm font-medium text-[#1E1E1E]"
             >
-              Select Categorization:
+              {t("selectCategory")}
             </label>
             <select
               id="categorization"
@@ -49,9 +51,9 @@ function ResultsAnalyticsPage() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="class">Class Wise</option>
-              <option value="assessment">Assessment Wise</option>
-              <option value="student">Student Wise</option>
+              <option value="class">{t("classwise")}</option>
+              <option value="assessment">{t("assessmentwise")}</option>
+              <option value="student">{t("studentwise")}</option>
             </select>
           </div>
 
@@ -84,11 +86,11 @@ function ResultsAnalyticsPage() {
             <div className="mb-8 flex items-center justify-between">
               <div>
                 <h2 className="text-4xl font-bold text-[#303972]">
-                  Performance Analysis
+                  {t("performance")}
                 </h2>
                 <p className="mt-1 text-sm text-gray-500">
                   {category === "class"
-                    ? "Class Performance Over Assignments"
+                    ? t("subheadingperformance")
                     : category === "assessment"
                     ? "Student Performance by Question"
                     : "Student Performance Across Assessments"}
@@ -99,9 +101,9 @@ function ResultsAnalyticsPage() {
                 value={chartType}
                 onChange={(e) => setChartType(e.target.value)}
               >
-                <option value="bar">Bar Chart</option>
-                <option value="line">Line Chart</option>
-                <option value="area">Area Chart</option>
+                <option value="bar">{t("barchart")}</option>
+                <option value="line">{t("linechart")}</option>
+                <option value="area">{t("areachart")}</option>
               </select>
             </div>
             <div className="flex justify-center">

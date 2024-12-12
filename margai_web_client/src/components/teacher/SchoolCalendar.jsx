@@ -8,6 +8,10 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+const SchoolCalendar = ({ events }) => {
+  const { t } = useTranslation("teacher-schoolcalendar");
 
 const YEARS = Array.from(
   { length: 9 },
@@ -15,36 +19,35 @@ const YEARS = Array.from(
 );
 
 const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  t("January"),
+    t("February"),
+    t("March"),
+    t("April"),
+    t("May"),
+    t("June"),
+    t("July"),
+    t("August"),
+    t("September"),
+    t("October"),
+    t("November"),
+    t("December"),
 ];
 
 const EVENT_TYPES = {
   TEST: {
-    name: "Test",
+    name: t("Test"),
     color: "bg-[#FB7D5B]  rounded-full px-4 py-3 text-white",
     dotColor: "bg-[#FB7D5B]",
     textColor: "text-[#FB7D5B]",
   },
   ASSIGNMENT: {
-    name: "Assignment",
+    name: t("Assignment"),
     color: "bg-[#FCC43E]  rounded-full px-4 py-3 text-white",
     dotColor: "bg-[#FCC43E]",
     textColor: "text-[#FCC43E]",
   },
 };
 
-const SchoolCalendar = ({ events }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const daysInMonth = new Date(
@@ -109,7 +112,7 @@ const SchoolCalendar = ({ events }) => {
       aria-label="School Calendar"
     >
       <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <h2 className="text-2xl font-bold text-[#303972]">School Calendar</h2>
+        <h2 className="text-2xl font-bold text-[#303972]">{t("schoolcal")}</h2>
 
         <Popover>
           <PopoverTrigger asChild>
@@ -122,7 +125,7 @@ const SchoolCalendar = ({ events }) => {
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-64 p-2" align="end">
-            <div className="mb-2 font-medium text-center">Month</div>
+            <div className="mb-2 font-medium text-center">{t("Month")}</div>
             <div className="grid grid-cols-3">
               {MONTHS.map((month, index) => (
                 <Button
@@ -143,7 +146,7 @@ const SchoolCalendar = ({ events }) => {
                 </Button>
               ))}
             </div>
-            <div className="mb-2 mt-4 font-medium text-center">Year</div>
+            <div className="mb-2 mt-4 font-medium text-center">{t("Year")}</div>
             <div className="grid grid-cols-3 gap-1">
               {YEARS.map((year) => (
                 <Button
@@ -168,7 +171,7 @@ const SchoolCalendar = ({ events }) => {
 
       {/* Calendar Grid */}
       <div className="mb-4 grid grid-cols-7 gap-1">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, index) => (
+        {[t("Sun"), t("Mon"), t("Tue"),t("Wed"), t("Thu"), t("Fri"), t("Sat")].map((day, index) => (
           <div
             key={day}
             className={cn(

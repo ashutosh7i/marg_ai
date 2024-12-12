@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function TopPerformingStudentsCard({ students }) {
+  const { t } = useTranslation("teacher-top-performing-student-card");
   const [visibleCount, setVisibleCount] = useState(5);
 
   const handleViewMore = () => {
@@ -11,7 +13,7 @@ function TopPerformingStudentsCard({ students }) {
   return (
     <div className="flex w-full flex-col rounded-3xl border bg-white p-6 pb-0 shadow-md">
       <h2 className="mb-6 text-xl font-semibold text-[#2E3A59]">
-        Top Performing Students
+        {t("title")}
       </h2>
       <ul className="mb-4 flex flex-col gap-4">
         {students.slice(0, visibleCount).map((student, idx) => (
@@ -27,7 +29,7 @@ function TopPerformingStudentsCard({ students }) {
           onClick={handleViewMore}
           className="text-sm font-bold text-[#4D44B5]"
         >
-          View More
+          {t("viewmore")}
         </button>
       )}
     </div>
@@ -37,6 +39,7 @@ function TopPerformingStudentsCard({ students }) {
 export default TopPerformingStudentsCard;
 
 function TopPerformingStudent({ student, idx }) {
+  const { t } = useTranslation("teacher-top-performing-student-card");
   let bgClass;
   let nameFontClass;
   let scoreFontClass;
@@ -75,7 +78,7 @@ function TopPerformingStudent({ student, idx }) {
     >
       <h3 className={`text-lg font-bold ${nameFontClass}`}>{student.name}</h3>
       <p className={`text-[0.675rem] font-bold uppercase ${scoreFontClass}`}>
-        {student.score}/10 points
+        {student.score}/10 {t("points")}
       </p>
 
       {medalSrc && (

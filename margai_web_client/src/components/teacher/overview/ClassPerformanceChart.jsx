@@ -9,23 +9,24 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useTranslation } from "react-i18next";
 
 const ClassPerformanceChart = ({ data }) => {
   const [selectedMonth, setSelectedMonth] = useState("January");
-
+  const { t } = useTranslation("teacher-overview-class-performance-chart");
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    t("January"),
+    t("February"),
+    t("March"),
+    t("April"),
+    t("May"),
+    t("June"),
+    t("July"),
+    t("August"),
+    t("September"),
+    t("October"),
+    t("November"),
+    t("December"),
   ];
 
   const filteredData = data.filter(
@@ -70,7 +71,7 @@ const ClassPerformanceChart = ({ data }) => {
     <div className="w-full rounded-3xl border bg-white p-6 pb-2 shadow-md">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-xl font-semibold text-[#2E3A59]">
-          Class Performance
+          {t("title")}
         </h2>
         <select
           value={selectedMonth}

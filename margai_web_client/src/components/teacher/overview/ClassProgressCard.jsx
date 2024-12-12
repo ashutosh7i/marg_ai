@@ -2,12 +2,14 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { ScrollArea } from "../../ui/scroll-area";
+import { useTranslation } from "react-i18next";
 
 function ClassProgressCard({ classProgress }) {
+  const { t } = useTranslation("teacher-class-progress-card");
   return (
     <div className="max-h-[535px] w-full rounded-3xl border bg-white p-6 shadow-md">
       <h2 className="mb-6 text-xl font-semibold text-[#2E3A59]">
-        Class Progress
+        {t("title")}
       </h2>
       <ScrollArea className="h-[425px] pr-2">
         {/* <div className="overflow-y-auto pr-2"> */}
@@ -27,7 +29,7 @@ function ClassProgressCard({ classProgress }) {
               </div>
               <p className="mt-2 font-semibold text-[#2E3A59]">{item.class}</p>
               <p className="text-sm text-[#8A8A8A]">
-                {item.completed}/{item.total} Students
+                {item.completed}/{item.total} {t("Students")}
               </p>
             </div>
           ))}
