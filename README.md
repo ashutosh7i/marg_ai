@@ -120,4 +120,83 @@ Marg AI is an innovative AI-powered assessment platform designed to make educati
 
 ---
 
+## 🛠️ Setup Instructions
+
+### Backend Setup
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/margai_flutter.git
+   cd margai_flutter/backend
+   ```
+
+2. **Install Dependencies**
+   Ensure you have [Node.js](https://nodejs.org/) installed, then run:
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**
+   Create a `.env` file in the root of the backend directory and add the following:
+   ```
+   PORT=5000
+   DATABASE_URL=your_database_url
+   JWT_SECRET=your_jwt_secret
+   ```
+
+4. **Run the Server**
+   Start the backend server:
+   ```bash
+   npm start
+   ```
+
+### Flutter Setup
+
+1. **Install Flutter**
+   Follow the instructions on the [Flutter website](https://flutter.dev/docs/get-started/install) to install Flutter.
+
+2. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/margai_flutter.git
+   cd margai_flutter
+   ```
+
+3. **Install Dependencies**
+   Run the following command to get the required packages:
+   ```bash
+   flutter pub get
+   ```
+
+4. **Run the App**
+   Use the following command to run the Flutter application:
+   ```bash
+   flutter run
+   ```
+
+### React Setup
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/margai_flutter.git
+   cd margai_flutter/web
+   ```
+
+2. **Install Dependencies**
+   Ensure you have [Node.js](https://nodejs.org/) installed, then run:
+   ```bash
+   npm install
+   ```
+
+3. **Run the React App**
+   Start the React application:
+   ```bash
+   npm start
+   ```
+
+### Additional Notes
+- Ensure that the backend server is running before starting the Flutter or React applications.
+- For any issues, refer to the respective documentation for Flutter and React.
+
+---
+
 Built with ❤️ for Smart India Hackathon 2024
