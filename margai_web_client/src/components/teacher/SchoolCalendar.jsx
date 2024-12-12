@@ -9,7 +9,9 @@ import {
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
-const { t } = useTranslation("teacher-schoolcalendar");
+
+const SchoolCalendar = ({ events }) => {
+  const { t } = useTranslation("teacher-schoolcalendar");
 
 const YEARS = Array.from(
   { length: 9 },
@@ -33,20 +35,19 @@ const MONTHS = [
 
 const EVENT_TYPES = {
   TEST: {
-    name: "Test",
+    name: t("Test"),
     color: "bg-[#FB7D5B]  rounded-full px-4 py-3 text-white",
     dotColor: "bg-[#FB7D5B]",
     textColor: "text-[#FB7D5B]",
   },
   ASSIGNMENT: {
-    name: "Assignment",
+    name: t("Assignment"),
     color: "bg-[#FCC43E]  rounded-full px-4 py-3 text-white",
     dotColor: "bg-[#FCC43E]",
     textColor: "text-[#FCC43E]",
   },
 };
 
-const SchoolCalendar = ({ events }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const daysInMonth = new Date(

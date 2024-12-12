@@ -20,5 +20,7 @@
     "Wed": "Wed",
     "Thu": "Thu",
     "Fri": "Fri",
-    "Sat": "Sat"
+    "Sat": "Sat",
+    "Test":"Test",
+    "Assignment":"Assignment"
 }
