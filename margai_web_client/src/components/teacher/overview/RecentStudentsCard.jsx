@@ -10,13 +10,13 @@ function RecentStudentsCard({ recentStudents }) {
   const handleViewMore = () => {
     setVisibleCount((prevCount) => prevCount + 5);
   };
-  const { t } = useTranslation("teacher-overview-recentstudentcard");
+  const { t } = useTranslation("teacher-recent-students-card");
   return (
     <div className="flex flex-col p-6 pb-2">
       <div className="flex items-center justify-between">
         <div>
           <h3 className="font-poppins mb-2 text-2xl font-bold text-[#303972]">
-            {t("recentstu")}
+            {t("Recent Students")}
           </h3>
           <p className="text-sm text-[#A098AE]">
             You have <strong>{recentStudents.length}</strong> students
@@ -66,7 +66,7 @@ function RecentStudentsCard({ recentStudents }) {
           onClick={handleViewMore}
           className="mx-auto mt-4 w-[90%] rounded-full bg-[#C1BBEB] px-2 py-4 text-lg font-[550] text-[#4D44B5]"
         >
-          {t("viewall")}
+          {t("View All")}
         </button>
       )}
     </div>
