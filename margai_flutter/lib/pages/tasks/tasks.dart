@@ -1,4 +1,5 @@
 import 'package:margai_flutter/imports.dart';
+import 'package:margai_flutter/pages/tasks/test.dart';
 
 class AssessmentScreen extends StatelessWidget {
   const AssessmentScreen({super.key});
@@ -41,7 +42,7 @@ class AssessmentScreen extends StatelessWidget {
                     onStart: () {},
                   ),
                   LiveAssessmentCard(
-                    subject: 'Maths',
+                    subject: 'Computer Science',
                     type: 'MCQ',
                     deadline: 'August 27, 2024 3:00 pm',
                     onStart: () {
@@ -317,128 +318,6 @@ class TakeAssessmentScreen extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder: (context) => TestScreen(
                                         type: AssessmentType.descriptive),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF0288D1),
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              child: Text(
-                                'Start Assessment',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TakeAssessmentScreen2 extends StatelessWidget {
-  const TakeAssessmentScreen2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Take Assessment',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.blue.shade100),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Title of the Assessment',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Deadline: August 27, 2024 3:00 pm',
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 14,
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            'Description:',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Students, you will be taking an assessment test titled "Sample Exam Test" as part of your assessment. The test will cover topics from the syllabus discussed so far.\n\nEnsure you are prepared and give the test on time. Good luck!',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Type: Type of Assessment'),
-                                  Text('Test Time: 30 minutes'),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text('No. of questions: 20'),
-                                  Text('Total Marks: 20'),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 24),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        TestScreen(type: AssessmentType.mcq),
                                   ),
                                 );
                               },
