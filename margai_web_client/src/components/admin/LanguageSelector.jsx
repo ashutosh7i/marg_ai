@@ -41,7 +41,7 @@ function LanguageSelector() {
           {languages.map((language) => (
             <DropdownMenuRadioItem
               key={language.code}
-              className="cursor-pointer text-[#303972]"
+              className="cursor-pointer text-[#018183]"
               value={language.code}
             >
               {language.label}

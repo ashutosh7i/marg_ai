@@ -9,7 +9,6 @@ import SignInPage from "./pages/SignInPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 import TeacherOverviewPage from "./pages/teacher/overview-page";
-import TeacherCreateAssessmentPage from "./pages/teacher/create-assessment-page";
 import TeacherAssessmentsPage from "./pages/teacher/assessments-list-page";
 import TeacherSchedulePage from "./pages/teacher/schedule-page";
 import TeacherResourcesPage from "./pages/teacher/resources-page";
@@ -24,6 +23,12 @@ import AdminExamAdminsPage from "./pages/admin/exam-admins-page";
 import AdminAssessmentsPage from "./pages/admin/assessments-page";
 import AdminExamSchedulePage from "./pages/admin/exam-schedule-page";
 import AdminInstitutionPage from "./pages/admin/institution-page";
+import AddVivaPage from "./pages/teacher/add-viva-page";
+import AddMCQPage from "./pages/teacher/add-mcq-page";
+import AddDescriptivePage from "./pages/teacher/add-descriptive-page";
+import GenerateQuestionsPage from "./pages/teacher/generate-questions-page";
+import OverviewPage from "./pages/exam-admin/overview-page";
+import ExamAdminAssignmentsPage from "./pages/exam-admin/assignments-page";
 
 const router = createBrowserRouter([
   {
@@ -40,12 +45,20 @@ const router = createBrowserRouter([
     element: <TeacherOverviewPage />,
   },
   {
-    path: "/teacher/assessments/create",
-    element: <TeacherCreateAssessmentPage />,
-  },
-  {
     path: "/teacher/assessments",
     element: <TeacherAssessmentsPage />,
+  },
+  {
+    path: "/teacher/assessments/add-viva",
+    element: <AddVivaPage />,
+  },
+  {
+    path: "/teacher/assessments/add-mcq",
+    element: <AddMCQPage />,
+  },
+  {
+    path: "/teacher/assessments/add-descriptive",
+    element: <AddDescriptivePage />,
   },
   {
     path: "/teacher/schedule",
@@ -66,6 +79,10 @@ const router = createBrowserRouter([
   {
     path: "/teacher/user",
     element: <TeacherUserPage />,
+  },
+  {
+    path: "/teacher/generate-questions",
+    element: <GenerateQuestionsPage />,
   },
   {
     path: "/admin",
@@ -94,6 +111,14 @@ const router = createBrowserRouter([
   {
     path: "/admin/institution",
     element: <AdminInstitutionPage />,
+  },
+  {
+    path: "/exam-admin",
+    element: <OverviewPage />,
+  },
+  {
+    path: "/exam-admin/assignments",
+    element: <ExamAdminAssignmentsPage />,
   },
 ]);
 

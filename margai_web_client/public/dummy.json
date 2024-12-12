@@ -1,0 +1,51 @@
+{
+  "question paper id": "QPP-002",
+
+  "created at": "2023-10-05T12:00:00Z",
+
+  "subject": "Java programming",
+
+  "subtopics": ["OOP", "data types", "interface"],
+
+  "difficulty level": "8 on 10",
+
+  "number of questions": 2,
+
+  "questions": [
+    {
+      "question id": "Q1",
+
+      "type": "MCQ",
+
+      "subtopic": "OOP",
+
+      "question prompt": "Java-യിൽ OOP (Object-Oriented Programming) ന്റെ പ്രധാന സിദ്ധാന്തങ്ങൾ ഏതാണ്?",
+
+      "options": [
+        "Encapsulation, Inheritance, Polymorphism",
+
+        "Abstraction, Compilation, Execution",
+
+        "Scripting, Compilation, Inheritance",
+
+        "None of the above"
+      ],
+
+      "correct answer": "Encapsulation, Inheritance, Polymorphism"
+    },
+
+    {
+      "question id": "Q2",
+
+      "type": "MCQ",
+
+      "subtopic": "data types",
+
+      "question prompt": "Java-യിൽ താഴെപ്പറയുന്നവയിൽ ഏത് ഒരു primitive data type ആണ്?",
+
+      "options": ["String", "Integer", "Boolean", "Array"],
+
+      "correct answer": "Boolean"
+    }
+  ]
+}
