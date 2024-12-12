@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../../providers/accessibility_provider.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final provider = context.watch<AccessibilityProvider>();
+
     return Scaffold(
-      backgroundColor: Color(0xFFF0F4FF),
+      backgroundColor: provider.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -20,15 +25,15 @@ class DashboardScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Welcome back, Name',
-                      style: TextStyle(
-                        fontSize: 24,
+                      style: theme.textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
+                        color: provider.primaryTextColor,
                       ),
                     ),
                     Text(
                       'You ve reached 72% of your GOAL this week',
-                      style: TextStyle(
-                        color: Colors.grey[600],
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: provider.secondaryTextColor,
                       ),
                     ),
                   ],
@@ -41,8 +46,9 @@ class DashboardScreen extends StatelessWidget {
                 padding: EdgeInsets.all(16),
                 margin: EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: provider.surfaceColor,
                   borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: provider.borderColor),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,14 +58,15 @@ class DashboardScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Performance',
-                          style: TextStyle(
+                          style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
+                            color: provider.primaryTextColor,
                           ),
                         ),
                         Text(
                           'Overall',
-                          style: TextStyle(
-                            color: Colors.blue,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            color: theme.colorScheme.primary,
                           ),
                         ),
                       ],
@@ -68,7 +75,21 @@ class DashboardScreen extends StatelessWidget {
                     Expanded(
                       child: LineChart(
                         LineChartData(
-                          gridData: FlGridData(show: false),
+                          gridData: FlGridData(
+                            show: true,
+                            getDrawingHorizontalLine: (value) {
+                              return FlLine(
+                                color: provider.borderColor.withOpacity(0.2),
+                                strokeWidth: 1,
+                              );
+                            },
+                            getDrawingVerticalLine: (value) {
+                              return FlLine(
+                                color: provider.borderColor.withOpacity(0.2),
+                                strokeWidth: 1,
+                              );
+                            },
+                          ),
                           titlesData: FlTitlesData(show: false),
                           borderData: FlBorderData(show: false),
                           lineBarsData: [
@@ -83,12 +104,12 @@ class DashboardScreen extends StatelessWidget {
                                 FlSpot(11, 4),
                               ],
                               isCurved: true,
-                              color: Colors.blue,
+                              color: theme.colorScheme.primary,
                               barWidth: 3,
                               dotData: FlDotData(show: false),
                               belowBarData: BarAreaData(
                                 show: true,
-                                color: Colors.blue.withOpacity(0.1),
+                                color: theme.colorScheme.primary.withOpacity(0.1),
                               ),
                             ),
                           ],
@@ -107,16 +128,16 @@ class DashboardScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Top Performing Student',
-                      style: TextStyle(
+                      style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        color: provider.primaryTextColor,
                       ),
                     ),
                     SizedBox(height: 16),
-                    _buildStudentCard('AA', 'Abhishek Jha', Colors.yellow),
-                    _buildStudentCard('A+', 'Madhav Arya', Colors.grey),
-                    _buildStudentCard('OT', 'Olamileyi Toki', Colors.orange),
-                    _buildStudentCard('MA', 'You', Colors.orange.shade200),
+                    _buildStudentCard(context, 'AA', 'Abhishek Jha', provider.adaptColorForColorBlindness(Colors.yellow)),
+                    _buildStudentCard(context, 'A+', 'Madhav Arya', provider.adaptColorForColorBlindness(Colors.grey)),
+                    _buildStudentCard(context, 'OT', 'Olamileyi Toki', provider.adaptColorForColorBlindness(Colors.orange)),
+                    _buildStudentCard(context, 'MA', 'You', provider.adaptColorForColorBlindness(Colors.orange.shade200)),
                   ],
                 ),
               ),
@@ -212,13 +233,17 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStudentCard(String grade, String name, Color color) {
+  Widget _buildStudentCard(BuildContext context, String grade, String name, Color color) {
+    final provider = context.watch<AccessibilityProvider>();
+    final theme = Theme.of(context);
+
     return Container(
       margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: provider.surfaceColor,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: provider.borderColor),
       ),
       child: Row(
         children: [
@@ -230,7 +255,7 @@ class DashboardScreen extends StatelessWidget {
             ),
             child: Text(
               grade,
-              style: TextStyle(
+              style: theme.textTheme.bodyLarge?.copyWith(
                 color: color,
                 fontWeight: FontWeight.bold,
               ),
@@ -239,8 +264,9 @@ class DashboardScreen extends StatelessWidget {
           SizedBox(width: 12),
           Text(
             name,
-            style: TextStyle(
+            style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
+              color: provider.primaryTextColor,
             ),
           ),
         ],

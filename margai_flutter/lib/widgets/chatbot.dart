@@ -4,6 +4,8 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';  // Add this import for TimeoutException
+import 'package:provider/provider.dart';
+import '../../providers/accessibility_provider.dart';
 
 const int _apiTimeout = 30; // timeout in seconds
 
@@ -65,12 +67,29 @@ class _ChatbotModalState extends State<ChatbotModal> {
   final FlutterTts _flutterTts = FlutterTts();
   bool _isListening = false;
   bool _isSending = false;
+  Timer? _autoSendTimer;  // Add this timer
 
   @override
   void initState() {
     super.initState();
     _initializeSpeech();
     _addBotMessage("Hi. Welcome to Marg AI. How may i help you?");
+    
+    // Add listener for auto-send
+    _textController.addListener(() {
+      if (_textController.text.isNotEmpty) {
+        _resetAutoSendTimer();
+      }
+    });
+  }
+
+  void _resetAutoSendTimer() {
+    _autoSendTimer?.cancel();
+    _autoSendTimer = Timer(Duration(seconds: 2), () {
+      if (_textController.text.isNotEmpty && !_isSending) {
+        _sendMessage(_textController.text);
+      }
+    });
   }
 
   void _initializeSpeech() async {
@@ -159,11 +178,23 @@ class _ChatbotModalState extends State<ChatbotModal> {
   }
 
   @override
+  void dispose() {
+    _autoSendTimer?.cancel();
+    _textController.dispose();
+    _speechToText.cancel();
+    _flutterTts.stop();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final provider = context.watch<AccessibilityProvider>();
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.9,
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: provider.backgroundColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
@@ -172,12 +203,11 @@ class _ChatbotModalState extends State<ChatbotModal> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(20)),
+              color: provider.surfaceColor,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: provider.borderColor.withOpacity(0.1),
                   spreadRadius: 1,
                   blurRadius: 3,
                 ),
@@ -185,16 +215,16 @@ class _ChatbotModalState extends State<ChatbotModal> {
             ),
             child: Row(
               children: [
-                const Text(
+                Text(
                   'Marg AI Assistant',
-                  style: TextStyle(
-                    fontSize: 18,
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: provider.primaryTextColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.close),
+                  icon: Icon(Icons.close, color: provider.primaryTextColor),
                   onPressed: () => Navigator.pop(context),
                 ),
               ],
@@ -203,12 +233,15 @@ class _ChatbotModalState extends State<ChatbotModal> {
 
           // Chat messages
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                return _messages[index];
-              },
+            child: Container(
+              color: provider.backgroundColor,
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: _messages.length,
+                itemBuilder: (context, index) {
+                  return _messages[index];
+                },
+              ),
             ),
           ),
 
@@ -221,10 +254,10 @@ class _ChatbotModalState extends State<ChatbotModal> {
               top: 16,
             ),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: provider.surfaceColor,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: provider.borderColor.withOpacity(0.1),
                   spreadRadius: 1,
                   blurRadius: 3,
                 ),
@@ -232,40 +265,42 @@ class _ChatbotModalState extends State<ChatbotModal> {
             ),
             child: Row(
               children: [
-                // Voice input button
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.grey[200],
+                    color: provider.inputFillColor,
                   ),
                   child: IconButton(
                     icon: Icon(
                       _isListening ? Icons.mic : Icons.mic_none,
-                      color: _isListening ? Colors.blue : Colors.grey[600],
+                      color: _isListening ? theme.colorScheme.primary : provider.secondaryTextColor,
                     ),
                     onPressed: _startListening,
                   ),
                 ),
                 const SizedBox(width: 8),
-                // Text input
                 Expanded(
                   child: TextField(
                     controller: _textController,
-                    decoration: const InputDecoration(
+                    style: TextStyle(color: provider.primaryTextColor),
+                    decoration: InputDecoration(
                       hintText: 'Send a Message',
+                      hintStyle: TextStyle(color: provider.secondaryTextColor),
                       border: InputBorder.none,
+                      fillColor: provider.inputFillColor,
+                      filled: true,
                     ),
                     onSubmitted: _sendMessage,
                   ),
                 ),
                 const SizedBox(width: 8),
-                // Send button
                 ElevatedButton(
                   onPressed: _isSending
                       ? null
                       : () => _sendMessage(_textController.text),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: theme.colorScheme.primary,
+                    foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -278,14 +313,6 @@ class _ChatbotModalState extends State<ChatbotModal> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _textController.dispose();
-    _speechToText.cancel();
-    _flutterTts.stop();
-    super.dispose();
   }
 }
 
@@ -301,6 +328,9 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<AccessibilityProvider>();
+    final theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -309,7 +339,7 @@ class ChatMessage extends StatelessWidget {
         children: [
           if (!isUser) ...[
             CircleAvatar(
-              backgroundColor: Colors.blue,
+              backgroundColor: theme.colorScheme.primary,
               child: Icon(
                 Icons.smart_toy,
                 color: Colors.white,
@@ -325,13 +355,17 @@ class ChatMessage extends StatelessWidget {
                 vertical: 10,
               ),
               decoration: BoxDecoration(
-                color: isUser ? Colors.grey[200] : Colors.blue,
+                color: isUser ? provider.inputFillColor : theme.colorScheme.primary,
                 borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: provider.borderColor,
+                  width: 1,
+                ),
               ),
               child: Text(
                 text,
-                style: TextStyle(
-                  color: isUser ? Colors.black : Colors.white,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: isUser ? provider.primaryTextColor : Colors.white,
                 ),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:margai_flutter/imports.dart';
 import 'package:margai_flutter/screens/accessibility/accessibility_screen.dart';
 import 'package:margai_flutter/widgets/chatbot.dart';
+import 'package:margai_flutter/screens/user/profile_screen.dart';
 
 // Nav Bar/App Bar
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -63,17 +64,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           GestureDetector(
             onTap: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => const ChatbotModal(),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ),
               );
             },
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              child: Image.network(
-                'https://ashutosh7i.dev/logo512.png',
+              child: ClipOval(
+                child: Image.network(
+                  'https://ashutosh7i.dev/logo512.png',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Icon(Icons.person,
+                        color: Theme.of(context).primaryColor);
+                  },
+                ),
               ),
             ),
           ),

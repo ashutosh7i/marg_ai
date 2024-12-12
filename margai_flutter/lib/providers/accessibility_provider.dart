@@ -130,6 +130,13 @@ class AccessibilityProvider extends ChangeNotifier {
     return MaterialColor(color.value, swatch);
   }
 
+  Color get backgroundColor => _highContrastMode ? Colors.black : Colors.white;
+  Color get primaryTextColor => _highContrastMode ? Colors.yellow : Colors.black;
+  Color get secondaryTextColor => _highContrastMode ? Colors.yellow.shade200 : Colors.grey[800]!;
+  Color get surfaceColor => _highContrastMode ? Colors.grey[900]! : Colors.white;
+  Color get borderColor => _highContrastMode ? Colors.yellow : Colors.grey[300]!;
+  Color get inputFillColor => _highContrastMode ? Colors.grey[900]! : Colors.grey[50]!;
+
   ThemeData getTheme(BuildContext context, ThemeData baseTheme) {
     // Apply color blindness adaptations to colors
     final primaryColor = adaptColorForColorBlindness(Colors.blue);
@@ -177,50 +184,57 @@ class AccessibilityProvider extends ChangeNotifier {
     if (_highContrastMode) {
       theme = theme.copyWith(
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
-        primaryColor: Colors.yellow,
+        scaffoldBackgroundColor: backgroundColor,
+        cardColor: surfaceColor,
+        dialogBackgroundColor: backgroundColor,
+        popupMenuTheme: PopupMenuThemeData(
+          color: surfaceColor,
+          textStyle: TextStyle(color: primaryTextColor),
+        ),
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: backgroundColor,
+          modalBackgroundColor: backgroundColor,
+        ),
         textTheme: scaledTextTheme.apply(
-          bodyColor: Colors.white,
-          displayColor: Colors.yellow,
+          bodyColor: primaryTextColor,
+          displayColor: primaryTextColor,
         ),
         primaryTextTheme: scaledTextTheme.apply(
-          bodyColor: Colors.white,
-          displayColor: Colors.yellow,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.yellow,
-            foregroundColor: Colors.black,
-            minimumSize: const Size(88, 48),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          ),
+          bodyColor: primaryTextColor,
+          displayColor: primaryTextColor,
         ),
         inputDecorationTheme: InputDecorationTheme(
+          fillColor: inputFillColor,
+          filled: true,
           border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.yellow, width: 2),
+            borderSide: BorderSide(color: borderColor, width: 2),
             borderRadius: BorderRadius.circular(8),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.yellow, width: 2),
+            borderSide: BorderSide(color: borderColor, width: 2),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.yellow, width: 3),
+            borderSide: BorderSide(color: primaryTextColor, width: 3),
             borderRadius: BorderRadius.circular(8),
           ),
           labelStyle: TextStyle(
-            color: Colors.yellow,
+            color: primaryTextColor,
             fontSize: 16 * _textScaleFactor,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.yellow),
+        dividerTheme: DividerThemeData(
+          color: borderColor,
+        ),
+        iconTheme: IconThemeData(color: primaryTextColor),
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.yellow,
+          backgroundColor: backgroundColor,
+          foregroundColor: primaryTextColor,
           elevation: 4,
-          shadowColor: Colors.yellow.withOpacity(0.5),
+          shadowColor: primaryTextColor.withOpacity(0.5),
+          iconTheme: IconThemeData(color: primaryTextColor),
           titleTextStyle: TextStyle(
-            color: Colors.yellow,
+            color: primaryTextColor,
             fontSize: 20 * _textScaleFactor,
             fontWeight: FontWeight.bold,
           ),
