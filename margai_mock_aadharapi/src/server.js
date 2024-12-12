@@ -95,6 +95,39 @@ app.post('/api/verify-otp', (req, res) => {
   res.json({ message: 'Verified successfully', userData });
 });
 
+// Send SMS endpoint
+app.post('/api/send-sms', async (req, res) => {
+  const { phoneNo, message } = req.body;
+  
+  if (!phoneNo || !message) {
+    return res.status(400).json({ 
+      error: 'Phone number and message are required' 
+    });
+  }
+
+  try {
+    await vonage.sms.send({
+      to: `91${phoneNo}`, // Assuming Indian numbers with 91 prefix
+      from: "Vonage APIs",
+      text: message
+    });
+
+    res.json({ 
+      message: 'SMS sent successfully',
+      // Include message in response only in development mode
+      ...(process.env.NODE_ENV !== 'production' && { 
+        sentMessage: message 
+      })
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ 
+      error: 'Failed to send SMS',
+      details: process.env.NODE_ENV !== 'production' ? error.message : undefined
+    });
+  }
+});
+
 // Make otpStore accessible for testing
 global.otpStore = otpStore;
 
