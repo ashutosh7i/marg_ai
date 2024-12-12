@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Auth App',
+      title: 'MargAI',
       locale: languageProvider.currentLocale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -57,10 +57,11 @@ class MyApp extends StatelessWidget {
         Locale('or'), // Odia
         Locale('bg'), // Bengali
         Locale('gu'), // Gujarati
+        Locale('kn'), // Kannada
         Locale('ml'), // Malayalam
-
+        Locale('as'),
         Locale('ne'), // Nepali
-
+        Locale('pa'),
         Locale('ta'), // Tamil
         Locale('te'), // Telugu
       ],

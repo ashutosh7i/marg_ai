@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _passwordController.text,
           );
       if (!mounted) return;
-      
+
       final authService = context.read<AuthService>();
       final userProfile = await authService.getProfile();
       final bool isProfileCompleted = true;
