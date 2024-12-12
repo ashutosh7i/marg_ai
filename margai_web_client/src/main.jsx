@@ -28,7 +28,7 @@ import AddMCQPage from "./pages/teacher/add-mcq-page";
 import AddDescriptivePage from "./pages/teacher/add-descriptive-page";
 import GenerateQuestionsPage from "./pages/teacher/generate-questions-page";
 import OverviewPage from "./pages/exam-admin/overview-page";
-import ExamAdminAssignmentsPage from "./pages/exam-admin/assignments-page";
+import ExamAdminAssessmentsPage from "./pages/exam-admin/assessments";
 
 const router = createBrowserRouter([
   {
@@ -117,8 +117,8 @@ const router = createBrowserRouter([
     element: <OverviewPage />,
   },
   {
-    path: "/exam-admin/assignments",
-    element: <ExamAdminAssignmentsPage />,
+    path: "/exam-admin/assessments",
+    element: <ExamAdminAssessmentsPage />,
   },
 ]);
 

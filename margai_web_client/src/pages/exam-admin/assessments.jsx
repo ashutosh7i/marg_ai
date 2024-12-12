@@ -1,6 +1,7 @@
-import LanguageSelector from "@/components/admin/LanguageSelector";
-import Sidebar from "@/components/admin/Sidebar";
-import AdminAvatar from "@/components/admin/AdminAvatar";
+import Sidebar from "@/components/exam-admin/Sidebar";
+import LanguageSelector from "@/components/teacher/LanguageSelector";
+
+import TeacherAvatar from "@/components/teacher/TeacherAvatar";
 
 const adminAssessments = [
   {
@@ -12,7 +13,7 @@ const adminAssessments = [
     missingStudentsNum: 5,
     appearingStudentsNum: 5,
     endDate: "2024-12-12",
-    postedOn: "2024-12-16",
+    postedOn: "2024-12-08",
     startDate: "2024-12-10",
   },
   {
@@ -23,9 +24,9 @@ const adminAssessments = [
     completedStudentsNum: 20,
     missingStudentsNum: 5,
     appearingStudentsNum: 5,
-    endDate: "2024-12-11",
-    postedOn: "2024-10-16",
-    startDate: "2024-12-11",
+    endDate: "2024-12-13",
+    postedOn: "2024-12-11",
+    startDate: "2024-12-12",
   },
   {
     id: 3,
@@ -89,13 +90,13 @@ const adminAssessments = [
   },
 ];
 
-function Assessments() {
+function AssignmentsPage() {
   return (
     <>
       <Sidebar />
-      <div className="ml-[16.975rem] bg-[#E8F9F9] h-full pb-8">
+      <div className="ml-[16.975rem] bg-[#E2EBFF] h-full pb-8">
         <header className="flex items-center justify-between px-10 py-6">
-          <h1 className="text-4xl font-bold text-[#00494A]">Assessments</h1>
+          <h1 className="text-4xl font-bold text-[#1B2E59]">Assessments</h1>
 
           <div className="flex items-center gap-12">
             <div className="flex items-center gap-3">
@@ -103,21 +104,21 @@ function Assessments() {
               <input
                 type="text"
                 placeholder="Search here..."
-                className="font-poppins h-[2.75rem] w-[21.875rem] rounded-[2.5rem] bg-[#FFF] px-6 py-0 text-base font-normal text-[#00494A] shadow-sm placeholder:text-sm placeholder:text-[#A098AE] focus:outline-none"
+                className="font-poppins h-[2.75rem] w-[21.875rem] rounded-[2.5rem] bg-[#FFF] px-6 py-0 text-base font-normal text-[#1B2E59] shadow-sm placeholder:text-sm placeholder:text-[#A098AE] focus:outline-none"
               />
 
               {/* Language dropdown */}
               <LanguageSelector />
             </div>
 
-            <AdminAvatar />
+            <TeacherAvatar />
           </div>
         </header>
 
         <div className="px-10 pt-2">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[#004D4E] text-2xl font-bold">Active: </h2>
-            <button className="text-[#018183] text-sm font-bold">
+            <h2 className="text-[#1B2E59] text-2xl font-bold">Active: </h2>
+            <button className="text-[#1B2E59] text-sm font-bold">
               See all
             </button>
           </div>
@@ -132,8 +133,8 @@ function Assessments() {
           </div>
 
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[#004D4E] text-2xl font-bold">Scheduled: </h2>
-            <button className="text-[#018183] text-sm font-bold">
+            <h2 className="text-[#1B2E59] text-2xl font-bold">Scheduled: </h2>
+            <button className="text-[#1B2E59] text-sm font-bold">
               See all
             </button>
           </div>
@@ -145,28 +146,13 @@ function Assessments() {
                 )
             )}
           </div>
-
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[#004D4E] text-2xl font-bold">Ended: </h2>
-            <button className="text-[#018183] text-sm font-bold">
-              See all
-            </button>
-          </div>
-          <div className="grid grid-cols-3 gap-4 mb-8">
-            {adminAssessments.map(
-              (a) =>
-                new Date(a.endDate) < new Date() && (
-                  <ExamCard key={a.id} assessment={a} />
-                )
-            )}
-          </div>
         </div>
       </div>
     </>
   );
 }
 
-export default Assessments;
+export default AssignmentsPage;
 
 /* eslint-disable react/prop-types */
 import { ordinalDate } from "@/utils/ordinalDate";
@@ -231,7 +217,7 @@ function ExamCard({ assessment }) {
         )}
       </div>
 
-      <button className="bg-[#018183] rounded-3xl mx-6 px-3 py-2 text-white font-bold mb-2">
+      <button className="bg-[#1B2E59] rounded-3xl mx-6 px-3 py-2 text-white font-bold mb-2">
         {status === "active"
           ? "Details"
           : status === "scheduled"

@@ -3,6 +3,7 @@ import SchoolCalendar from "@/components/SchoolCalendar";
 import LanguageSelector from "@/components/teacher/LanguageSelector";
 import TeacherAvatar from "@/components/teacher/TeacherAvatar";
 import { examSchedule } from "@/data/data";
+import { ordinalDate } from "@/utils/ordinalDate";
 
 function OverviewPage() {
   return (
@@ -17,7 +18,7 @@ function OverviewPage() {
       </header>
       <main className="ml-[16.975rem] bg-[#F3F4FF] px-10 py-6 grid grid-cols-2 gap-4">
         <div>
-          <div className="grid h-[10.9375rem] grid-cols-[60%_40%] rounded-[1.25rem] bg-[#1B2E59] p-1 text-white">
+          <div className="grid h-[10.9375rem] grid-cols-[60%_40%] rounded-[1.25rem] bg-[#1B2E59] p-1 text-white mb-4">
             <div className="flex flex-col justify-center px-10">
               <h2 className="text-2xl font-bold">Hello, Name! 👋</h2>
 
@@ -35,22 +36,22 @@ function OverviewPage() {
               className="translate-y-[0.5rem]"
             />
           </div>
-          {/* <div className="w-full rounded-3xl border bg-white p-6 shadow-md">
-            <h2 className="text-2xl font-bold text-[#125354] mb-4">
+          <div className="w-full rounded-3xl border bg-white p-6 shadow-md">
+            <h2 className="text-2xl font-bold text-[#1B2E59] mb-4">
               Exam Schedules
             </h2>
 
             <ul className="flex flex-col gap-4">
               {examSchedule.map((exam) => (
                 <li
-                  className="flex items-center justify-between rounded-xl bg-[#E8F9F9] p-6 shadow-sm transition-all hover:shadow-md"
+                  className="flex items-center justify-between rounded-xl bg-[#E2EBFF] p-6 shadow-sm transition-all hover:shadow-md"
                   key={exam.id}
                 >
                   <div className="flex flex-col items-start">
                     <h3 className="mb-1 text-xl font-bold text-[#333]">
                       {exam.title}
                     </h3>
-                    <button className="line-clamp-1 cursor-pointer text-xs font-semibold text-[#018183] underline">
+                    <button className="line-clamp-1 cursor-pointer text-xs font-semibold text-[#1B2E59] underline">
                       View Schedule
                     </button>
                   </div>
@@ -63,7 +64,7 @@ function OverviewPage() {
                 </li>
               ))}
             </ul>
-          </div> */}
+          </div>
         </div>
 
         <SchoolCalendar
