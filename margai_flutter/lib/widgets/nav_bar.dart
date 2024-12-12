@@ -1,5 +1,6 @@
 import 'package:margai_flutter/imports.dart';
 import 'package:margai_flutter/screens/accessibility/accessibility_screen.dart';
+import 'package:margai_flutter/widgets/chatbot.dart';
 
 // Nav Bar/App Bar
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -11,7 +12,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           CircleAvatar(
             backgroundColor: Colors.white,
-            child: Icon(Icons.school, color: Color(0xFF2196F3)),
+            child: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => const ChatbotModal(),
+                );
+              },
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/logo.gif',
+                  width: 54,
+                  height: 54,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
           SizedBox(width: 8),
           Expanded(
@@ -45,18 +63,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
-                ),
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => const ChatbotModal(),
               );
             },
             child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.network(
                 'https://ashutosh7i.dev/logo512.png',
-                // color: Color(0xFF2196F3)
               ),
             ),
           ),

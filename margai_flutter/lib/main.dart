@@ -155,8 +155,10 @@ class _InitialLoadingScreenState extends State<InitialLoadingScreen> {
         // User is logged in, check if profile is completed
         try {
           final userProfile = await authService.getProfile();
-          final bool isProfileCompleted =
-              true; // You can modify this condition based on your requirements
+          // Check if required profile fields are filled
+          final bool isProfileCompleted = userProfile['name'] != null && 
+              userProfile['username'] != null && 
+              userProfile['preferredLanguage'] != null;
 
           if (!mounted) return;
 
@@ -168,8 +170,7 @@ class _InitialLoadingScreenState extends State<InitialLoadingScreen> {
           } else {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const CreateProfileScreen()),
+              MaterialPageRoute(builder: (context) => const CreateProfileScreen()),
             );
           }
         } catch (e) {
@@ -177,8 +178,7 @@ class _InitialLoadingScreenState extends State<InitialLoadingScreen> {
           if (!mounted) return;
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
-                builder: (context) => const CreateProfileScreen()),
+            MaterialPageRoute(builder: (context) => const CreateProfileScreen()),
           );
         }
       } else {

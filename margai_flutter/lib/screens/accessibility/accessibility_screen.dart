@@ -94,13 +94,28 @@ class AccessibilityScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 DropdownButtonFormField<ColorBlindnessType>(
                   value: provider.colorBlindnessType,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Theme.of(context).brightness == Brightness.dark 
+                        ? Colors.grey[800] 
+                        : Colors.grey[50],
+                  ),
+                  dropdownColor: Theme.of(context).brightness == Brightness.dark 
+                      ? Colors.grey[800] 
+                      : Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                   items: ColorBlindnessType.values.map((type) {
                     return DropdownMenuItem(
                       value: type,
-                      child: Text(type.name.toUpperCase()),
+                      child: Text(
+                        type.name.toUpperCase(),
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
+                        ),
+                      ),
                     );
                   }).toList(),
                   onChanged: (type) {
