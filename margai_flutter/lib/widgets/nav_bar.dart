@@ -22,12 +22,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   builder: (context) => const ChatbotModal(),
                 );
               },
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/logo.gif',
-                  width: 54,
-                  height: 54,
-                  fit: BoxFit.cover,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2.0,
+                  ),
+                ),
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/images/logo.gif',
+                    width: 54,
+                    height: 54,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
