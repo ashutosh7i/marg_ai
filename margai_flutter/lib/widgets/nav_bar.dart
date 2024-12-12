@@ -1,4 +1,5 @@
 import 'package:margai_flutter/imports.dart';
+import 'package:margai_flutter/screens/accessibility/accessibility_screen.dart';
 
 // Nav Bar/App Bar
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -30,6 +31,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           SizedBox(width: 8),
+          IconButton(
+            icon: const Icon(Icons.accessibility_new),
+            tooltip: 'Accessibility Settings',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AccessibilityScreen(),
+                ),
+              );
+            },
+          ),
           GestureDetector(
             onTap: () {
               Navigator.push(

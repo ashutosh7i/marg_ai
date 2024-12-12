@@ -20,8 +20,15 @@ class LanguageProvider extends ChangeNotifier {
   }
 
   static List<Map<String, String>> get supportedLanguages => [
-        {'code': 'en', 'name': 'English'},
-        {'code': 'hi', 'name': 'हिंदी'},
-        {'code': 'mr', 'name': 'मराठी'},
+        {'code': 'en', 'name': 'English (English)'},
+        {'code': 'hi', 'name': 'हिंदी (Hindi)'},
+        {'code': 'mr', 'name': 'मराठी (Marathi)'},
+        {'code': 'or', 'name': 'ଓଡ଼ିଆ (Odia)'},
+        {'code': 'bg', 'name': 'বাংলা (Bengali)'},
+        {'code': 'gu', 'name': 'ગુજરાતી (Gujarati)'},
+        {'code': 'ml', 'name': 'മലയാളം (Malayalam)'},
+        {'code': 'ne', 'name': 'नेपाली (Nepali)'},
+        {'code': 'ta', 'name': 'தமிழ் (Tamil)'},
+        {'code': 'te', 'name': 'తెలుగు (Telugu)'},
       ];
 }

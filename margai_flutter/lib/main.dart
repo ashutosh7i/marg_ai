@@ -54,6 +54,15 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English
         Locale('hi'), // Hindi
         Locale('mr'), // Marathi
+        Locale('or'), // Odia
+        Locale('bg'), // Bengali
+        Locale('gu'), // Gujarati
+        Locale('ml'), // Malayalam
+
+        Locale('ne'), // Nepali
+
+        Locale('ta'), // Tamil
+        Locale('te'), // Telugu
       ],
       theme: accessibilityProvider.getTheme(
         context,
@@ -135,18 +144,19 @@ class _InitialLoadingScreenState extends State<InitialLoadingScreen> {
 
   Future<void> _checkAuthState() async {
     final authService = context.read<AuthService>();
-    
+
     try {
       final isLoggedIn = await authService.isLoggedIn();
-      
+
       if (!mounted) return;
 
       if (isLoggedIn) {
         // User is logged in, check if profile is completed
         try {
           final userProfile = await authService.getProfile();
-          final bool isProfileCompleted = true; // You can modify this condition based on your requirements
-          
+          final bool isProfileCompleted =
+              true; // You can modify this condition based on your requirements
+
           if (!mounted) return;
 
           if (isProfileCompleted) {
@@ -157,7 +167,8 @@ class _InitialLoadingScreenState extends State<InitialLoadingScreen> {
           } else {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const CreateProfileScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const CreateProfileScreen()),
             );
           }
         } catch (e) {
@@ -165,7 +176,8 @@ class _InitialLoadingScreenState extends State<InitialLoadingScreen> {
           if (!mounted) return;
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const CreateProfileScreen()),
+            MaterialPageRoute(
+                builder: (context) => const CreateProfileScreen()),
           );
         }
       } else {
