@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 
 
 function UserProfilePage() {
+  const { t } = useTranslation("pages-teacher-user-profile-page");
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -16,13 +17,13 @@ function UserProfilePage() {
   };
 
   const [teacherData, setTeacherData] = useState({
-    teacherName: "Teacher_Name",
-    subjects: "Mathematics, Physics",
-    email: "cainticrg.722.stud@cdd.edu.ph",
-    officeAddress: "468 Sitio Tokok, Bacayao Sur, Dagupan City, Pangasinan",
-    phoneNumber: "09123456789",
-    telephoneNumber: "(125) 545-5245",
-    institution: "Acropolis Institute of Technology and Reseach, Indore, M.P.",
+    teacherName: t("teacherName"),
+    subjects: t("subjects"),
+    email: t("email"),
+    officeAddress: t("officeAddress"),
+    phoneNumber: t("phoneNumber"),
+    telephoneNumber: t("telephoneNumber"),
+    institution: t("institution"),
   });
 
   const handleEdit = (field, value) => {
@@ -31,7 +32,7 @@ function UserProfilePage() {
       [field]: value,
     }));
   };
-  const { t } = useTranslation("teacher-events-UpcomingEventsCard");
+  
   return (
     <>
       <Sidebar />
