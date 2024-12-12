@@ -3,6 +3,8 @@ import Sidebar from "@/components/teacher/Sidebar";
 import EditableField from "@/components/teacher/user-profile/EditableField";
 import { Pencil, MapPin, Phone, PhoneCall, Building } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 
 function UserProfilePage() {
   const handleImageUpload = (event) => {
@@ -29,19 +31,19 @@ function UserProfilePage() {
       [field]: value,
     }));
   };
-
+  const { t } = useTranslation("teacher-events-UpcomingEventsCard");
   return (
     <>
       <Sidebar />
       <div className="ml-[16.975rem] bg-[#F3F4FF]">
         <header className="flex items-center justify-between px-10 py-6">
-          <h1 className="text-4xl font-bold text-[#303972]">User Profile</h1>
+          <h1 className="text-4xl font-bold text-[#303972]">{t("userprofile")}</h1>
           <LanguageSelector />
         </header>
 
         <main className="relative mx-20 mb-0 mt-6 h-screen">
           <h2 className="font-italic font-roboto mb-4 text-xl font-normal text-[#555]">
-            Edit Profile
+            {t("Edit Profile")}
           </h2>
           <div
             className="mb-8 rounded-lg bg-white"
@@ -72,7 +74,7 @@ function UserProfilePage() {
           </div>
 
           <h2 className="font-italic font-roboto mb-4 text-xl font-normal text-[#555]">
-            Contact Information
+            {t("contactinfo")}
           </h2>
           <div
             className="rounded-lg bg-white"
@@ -130,7 +132,7 @@ function UserProfilePage() {
                     className="m-auto h-auto w-[6rem]"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
-                    <span className="text-sm text-white">Change Photo</span>
+                    <span className="text-sm text-white">{t("changephoto")}</span>
                   </div>
                 </div>
               </label>
