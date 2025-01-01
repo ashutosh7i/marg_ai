@@ -59,12 +59,11 @@ function SignIn() {
               </a>
             </div>
 
-            <button
-              type="submit"
-              className="h-9 w-full rounded-lg bg-[#162D3A] text-sm font-medium text-white"
-            >
-              Sign In
-            </button>
+            <Link to="/teacher">
+              <button className="h-9 w-full rounded-lg bg-[#162D3A] text-sm font-medium text-white">
+                Sign In
+              </button>
+            </Link>
           </form>
 
           <div
@@ -180,9 +179,9 @@ function SignIn() {
 
           <p className="text-center text-xs font-normal text-[#313957]">
             Don&apos;t have an account?{" "}
-            <Link to="/sign-up" className="text-[#1E4AE9]">
-              Sign Up
-            </Link>
+            {/* <Link to="/sign-up" className="text-[#1E4AE9]"> */}
+            Sign Up
+            {/* </Link> */}
           </p>
         </div>
       </section>

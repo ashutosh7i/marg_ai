@@ -13,7 +13,8 @@ function TopPerformingStudentsCard({ students }) {
   return (
     <div className="flex w-full flex-col rounded-3xl border bg-white p-6 pb-0 shadow-md">
       <h2 className="mb-6 text-xl font-semibold text-[#2E3A59]">
-        {t("title")}
+        {/* {t("title")} */}
+        Top performing Students
       </h2>
       <ul className="mb-4 flex flex-col gap-4">
         {students.slice(0, visibleCount).map((student, idx) => (

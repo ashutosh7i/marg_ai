@@ -33,11 +33,6 @@ import ExamAdminAssessmentsPage from "./pages/exam-admin/assessments";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "sign-in",
     element: <SignInPage />,
   },
   {

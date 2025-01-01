@@ -51,9 +51,9 @@ function ResultsAnalyticsPage() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="class">{t("classwise")}</option>
-              <option value="assessment">{t("assessmentwise")}</option>
-              <option value="student">{t("studentwise")}</option>
+              <option value="class">Class Wise</option>
+              <option value="assessment">Assignment Wise</option>
+              <option value="student">Student Wise</option>
             </select>
           </div>
 

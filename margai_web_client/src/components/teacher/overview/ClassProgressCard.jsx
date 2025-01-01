@@ -9,7 +9,8 @@ function ClassProgressCard({ classProgress }) {
   return (
     <div className="max-h-[535px] w-full rounded-3xl border bg-white p-6 shadow-md">
       <h2 className="mb-6 text-xl font-semibold text-[#2E3A59]">
-        {t("title")}
+        {/* {t("title")} */}
+        Class Progress
       </h2>
       <ScrollArea className="h-[425px] pr-2">
         {/* <div className="overflow-y-auto pr-2"> */}

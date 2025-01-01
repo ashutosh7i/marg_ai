@@ -13,13 +13,13 @@ import { useTranslation } from "react-i18next";
 const SchoolCalendar = ({ events }) => {
   const { t } = useTranslation("teacher-schoolcalendar");
 
-const YEARS = Array.from(
-  { length: 9 },
-  (_, i) => new Date().getFullYear() - 3 + i
-);
+  const YEARS = Array.from(
+    { length: 9 },
+    (_, i) => new Date().getFullYear() - 3 + i
+  );
 
-const MONTHS = [
-  t("January"),
+  const MONTHS = [
+    t("January"),
     t("February"),
     t("March"),
     t("April"),
@@ -31,22 +31,22 @@ const MONTHS = [
     t("October"),
     t("November"),
     t("December"),
-];
+  ];
 
-const EVENT_TYPES = {
-  TEST: {
-    name: t("Test"),
-    color: "bg-[#FB7D5B]  rounded-full px-4 py-3 text-white",
-    dotColor: "bg-[#FB7D5B]",
-    textColor: "text-[#FB7D5B]",
-  },
-  ASSIGNMENT: {
-    name: t("Assignment"),
-    color: "bg-[#FCC43E]  rounded-full px-4 py-3 text-white",
-    dotColor: "bg-[#FCC43E]",
-    textColor: "text-[#FCC43E]",
-  },
-};
+  const EVENT_TYPES = {
+    TEST: {
+      name: t("Test"),
+      color: "bg-[#FB7D5B]  rounded-full px-4 py-3 text-white",
+      dotColor: "bg-[#FB7D5B]",
+      textColor: "text-[#FB7D5B]",
+    },
+    ASSIGNMENT: {
+      name: t("Assignment"),
+      color: "bg-[#FCC43E]  rounded-full px-4 py-3 text-white",
+      dotColor: "bg-[#FCC43E]",
+      textColor: "text-[#FCC43E]",
+    },
+  };
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -112,7 +112,7 @@ const EVENT_TYPES = {
       aria-label="School Calendar"
     >
       <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <h2 className="text-2xl font-bold text-[#303972]">{t("schoolcal")}</h2>
+        <h2 className="text-2xl font-bold text-[#303972]">School Calendar</h2>
 
         <Popover>
           <PopoverTrigger asChild>
@@ -171,7 +171,15 @@ const EVENT_TYPES = {
 
       {/* Calendar Grid */}
       <div className="mb-4 grid grid-cols-7 gap-1">
-        {[t("Sun"), t("Mon"), t("Tue"),t("Wed"), t("Thu"), t("Fri"), t("Sat")].map((day, index) => (
+        {[
+          t("Sun"),
+          t("Mon"),
+          t("Tue"),
+          t("Wed"),
+          t("Thu"),
+          t("Fri"),
+          t("Sat"),
+        ].map((day, index) => (
           <div
             key={day}
             className={cn(
