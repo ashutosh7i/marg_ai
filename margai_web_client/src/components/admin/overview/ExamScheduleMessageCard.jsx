@@ -2,6 +2,7 @@
 
 import { ordinalDate } from "@/utils/ordinalDate";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function ExamScheduleMessageCard({ exams = [] }) {
   const [visibleCount, setVisibleCount] = useState(2);
@@ -9,11 +10,11 @@ function ExamScheduleMessageCard({ exams = [] }) {
   const handleViewMore = () => {
     setVisibleCount((prevCount) => prevCount + 5);
   };
-
+  const { t } = useTranslation("component-admin-overview-ExamScheduleMessageCard");
   return (
     <div className="w-full rounded-3xl border bg-white pt-4 px-6 pb-2 shadow-md flex flex-col">
       <h2 className="text-[#018183] text-base font-semibold text-center mb-2">
-        Exam Schedule
+        {t("heading")}
       </h2>
       <ul className="mb-4 flex flex-col gap-2">
         {exams.slice(0, visibleCount).map((exam) => (
@@ -29,7 +30,7 @@ function ExamScheduleMessageCard({ exams = [] }) {
           onClick={handleViewMore}
           className="text-sm font-bold text-[#00494A]"
         >
-          View More
+          {t("label")}
         </button>
       )}
     </div>

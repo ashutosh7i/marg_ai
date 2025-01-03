@@ -1,6 +1,9 @@
 import LanguageSelector from "@/components/admin/LanguageSelector";
 import Sidebar from "@/components/admin/Sidebar";
 import AdminAvatar from "@/components/admin/AdminAvatar";
+/* eslint-disable react/prop-types */
+import { ordinalDate } from "@/utils/ordinalDate";
+import { useTranslation } from "react-i18next";
 
 const adminAssessments = [
   {
@@ -90,12 +93,13 @@ const adminAssessments = [
 ];
 
 function Assessments() {
+  const { t } = useTranslation("pages-admin-assessments-page");
   return (
     <>
       <Sidebar />
       <div className="ml-[16.975rem] bg-[#E8F9F9] h-full pb-8">
         <header className="flex items-center justify-between px-10 py-6">
-          <h1 className="text-4xl font-bold text-[#00494A]">Assessments</h1>
+          <h1 className="text-4xl font-bold text-[#00494A]">{t("heading")}</h1>
 
           <div className="flex items-center gap-12">
             <div className="flex items-center gap-3">
@@ -116,9 +120,9 @@ function Assessments() {
 
         <div className="px-10 pt-2">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[#004D4E] text-2xl font-bold">Active: </h2>
+            <h2 className="text-[#004D4E] text-2xl font-bold">{t("status")} </h2>
             <button className="text-[#018183] text-sm font-bold">
-              See all
+              {t("seeall")}
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4 mb-8">
@@ -132,9 +136,9 @@ function Assessments() {
           </div>
 
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[#004D4E] text-2xl font-bold">Scheduled: </h2>
+            <h2 className="text-[#004D4E] text-2xl font-bold">{t("scheduled")} </h2>
             <button className="text-[#018183] text-sm font-bold">
-              See all
+              {t("seeall")}
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4 mb-8">
@@ -147,9 +151,9 @@ function Assessments() {
           </div>
 
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[#004D4E] text-2xl font-bold">Ended: </h2>
+            <h2 className="text-[#004D4E] text-2xl font-bold">{t("ended")}</h2>
             <button className="text-[#018183] text-sm font-bold">
-              See all
+             {t("seeall")}
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4 mb-8">
@@ -167,9 +171,6 @@ function Assessments() {
 }
 
 export default Assessments;
-
-/* eslint-disable react/prop-types */
-import { ordinalDate } from "@/utils/ordinalDate";
 
 function ExamCard({ assessment }) {
   const {
@@ -189,15 +190,15 @@ function ExamCard({ assessment }) {
     scheduled: startDate > new Date(),
     ended: endDate < new Date(),
   };
-
+  const { t } = useTranslation("pages-admin-assessments-page");
   return (
     <div className="bg-white rounded-3xl shadow-md px-6 py-4 flex flex-col ">
       <h2 className="text-xl font-semibold text-[#2E3A59]">{title}</h2>
 
       <div className="flex items-center justify-between mb-1">
-        <p className="text-[#999] font-medium text-sm mb-1">Type: {type}</p>
+        <p className="text-[#999] font-medium text-sm mb-1">{t("type")}{type}</p>
         <p className="text-[#999] font-medium text-sm mb-1">
-          By: {teacherName}
+          {t("by")} {teacherName}
         </p>
       </div>
 
@@ -215,7 +216,7 @@ function ExamCard({ assessment }) {
           </h3>
         ) : (
           <h3>
-            Completed: {Number(completedStudentsNum)}/
+            {t("completed")}{Number(completedStudentsNum)}/
             {Number(completedStudentsNum) +
               Number(missingStudentsNum) +
               Number(appearingStudentsNum)}
@@ -223,11 +224,11 @@ function ExamCard({ assessment }) {
         )}
 
         {status === "active" ? (
-          <h3>Appearing: {Number(missingStudentsNum)}</h3>
+          <h3>{t("appearing")} {Number(missingStudentsNum)}</h3>
         ) : status === "scheduled" ? (
-          <h3>Starts on: {ordinalDate(startDate, true)}</h3>
+          <h3>{t("starts")} {ordinalDate(startDate, true)}</h3>
         ) : (
-          <h3>Missing: {Number(missingStudentsNum)}</h3>
+          <h3>{t("missing")} {Number(missingStudentsNum)}</h3>
         )}
       </div>
 
@@ -240,7 +241,7 @@ function ExamCard({ assessment }) {
       </button>
 
       <div className="text-[#AAA] text-xs text-center italic ">
-        Posted: {ordinalDate(postedOn, true)}
+        {t("posted")} {ordinalDate(postedOn, true)}
       </div>
     </div>
   );

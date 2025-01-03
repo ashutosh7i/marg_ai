@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "react-i18next";
 
 function ExamAdminsPage() {
   const [examAdmins, setExamAdmins] = useState([
@@ -47,25 +48,25 @@ function ExamAdminsPage() {
     setNewExamAdmin({ name: "", email: "", password: "" });
     setIsDrawerOpen(false);
   };
-
+  const { t } = useTranslation("pages-admin-exam-admins-page");
   return (
     <div className="h-screen">
       <Sidebar />
       <Header heading="Exam Admins" />
       <div className="ml-[16.975rem] bg-[#E8F9F9] h-full pb-8 flex-1 p-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Exam Admins List</h2>
+          <h2 className="text-2xl font-bold">{t("title")}</h2>
           <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
             <DrawerTrigger asChild>
-              <Button>Add New Exam Admin</Button>
+              <Button>{t("option")}</Button>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Add New Exam Admin</DrawerTitle>
+                <DrawerTitle>{t("option")}</DrawerTitle>
               </DrawerHeader>
               <form onSubmit={handleAddExamAdmin} className="p-6 space-y-4">
                 <div>
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="name">{t("name")}</Label>
                   <Input
                     id="name"
                     type="text"
@@ -77,7 +78,7 @@ function ExamAdminsPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t("email")}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -92,7 +93,7 @@ function ExamAdminsPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">{t("password")}</Label>
                   <Input
                     id="password"
                     type="password"
@@ -107,7 +108,7 @@ function ExamAdminsPage() {
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  Add Exam Admin
+                  {t("add")}
                 </Button>
               </form>
             </DrawerContent>
@@ -118,9 +119,9 @@ function ExamAdminsPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Password</TableHead>
+                <TableHead>{t("name")}</TableHead>
+                <TableHead>{t("email")}</TableHead>
+                <TableHead>{t("password")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

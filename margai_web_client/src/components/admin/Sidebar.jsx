@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router";
 
 function Sidebar() {
   const { pathname } = useLocation();
-  const { t } = useTranslation("admin-sidebar");
+  const { t } = useTranslation("component-admin-sidebar");
 
   const menuItems = [
     {
@@ -72,8 +72,7 @@ function Sidebar() {
       >
         <img src="/img/logo.svg" alt="logo" height={45} width={45} />
         <h1 className="font-poppins lead text-[2rem] font-bold text-white">
-          {/* {t("Title")} */}
-          Marg AI
+           {t("Title")} 
         </h1>
       </Link>
 

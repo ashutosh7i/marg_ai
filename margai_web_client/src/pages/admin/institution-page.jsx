@@ -3,6 +3,7 @@ import Sidebar from "@/components/admin/Sidebar";
 import EditableField from "@/components/EditableField";
 import { Mail, Pencil, PhoneCall } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function InstitutionPage() {
   const handleImageUpload = (event) => {
@@ -28,16 +29,16 @@ function InstitutionPage() {
       [field]: value,
     }));
   };
-
+  const { t } = useTranslation("pages-admin-institution-page");
   return (
     <>
       <Sidebar />
-      <Header heading={"Exam Schedule"} />
+      <Header heading={"Institution"} />
 
       <main className="ml-[16.975rem] bg-[#E8F9F9] h-screen pt-10">
         <div className="mx-20 relative">
           <h2 className="font-italic font-roboto mb-4 text-xl font-normal text-[#555]">
-            Edit details
+            {t("edit")}
           </h2>
           <div
             className="mb-8 rounded-lg bg-white"
@@ -61,7 +62,7 @@ function InstitutionPage() {
           </div>
 
           <h2 className="font-italic font-roboto mb-4 text-xl font-normal text-[#555]">
-            Address
+            {t("address")}
           </h2>
           <div
             className="mb-8 rounded-lg bg-white"
@@ -78,7 +79,7 @@ function InstitutionPage() {
           </div>
 
           <h2 className="font-italic font-roboto mb-4 text-xl font-normal text-[#555]">
-            Contact Details
+            {t("contact")}
           </h2>
           <div
             className="rounded-lg bg-white"
@@ -120,7 +121,7 @@ function InstitutionPage() {
                     className="m-auto h-auto w-[6rem]"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
-                    <span className="text-sm text-white">Change Photo</span>
+                    <span className="text-sm text-white">{t("changePhoto")}</span>
                   </div>
                 </div>
               </label>

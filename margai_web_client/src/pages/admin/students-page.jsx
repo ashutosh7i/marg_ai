@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 
 const mockClasses = ["Class A", "Class B", "Class C"];
 
@@ -54,25 +55,25 @@ function StudentsPage() {
     setNewStudent({ email: "", class: "", password: "" });
     setIsDrawerOpen(false);
   };
-
+  const { t } = useTranslation("pages-admin-students-page");
   return (
     <div className="h-screen">
       <Sidebar />
       <Header heading="Students" />
       <div className="ml-[16.975rem] bg-[#E8F9F9] h-full pb-8 flex-1 p-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Students List</h2>
+          <h2 className="text-2xl font-bold">{t("heading")}</h2>
           <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
             <DrawerTrigger asChild>
-              <Button>Add New Student</Button>
+              <Button>{t("add")}</Button>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Invite New Student</DrawerTitle>
+                <DrawerTitle>{t("invite")}</DrawerTitle>
               </DrawerHeader>
               <form onSubmit={handleAddStudent} className="p-6 space-y-4">
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t("email")}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -84,7 +85,7 @@ function StudentsPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="class">Class</Label>
+                  <Label htmlFor="class">{t("class")}</Label>
                   <Select
                     value={newStudent.class}
                     onValueChange={(value) =>
@@ -104,7 +105,7 @@ function StudentsPage() {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="password">Temporary Password</Label>
+                  <Label htmlFor="password">{t("password")}</Label>
                   <Input
                     id="password"
                     type="password"
@@ -116,7 +117,7 @@ function StudentsPage() {
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  Send Invite
+                  {t("send invite")}
                 </Button>
               </form>
             </DrawerContent>
@@ -127,10 +128,10 @@ function StudentsPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Accessibility Setting</TableHead>
-                <TableHead>Class</TableHead>
+                <TableHead>{t("name")}</TableHead>
+                <TableHead>{t("email")}</TableHead>
+                <TableHead>{t("settings")}</TableHead>
+                <TableHead>{t("class")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

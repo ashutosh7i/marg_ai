@@ -1,0 +1,8 @@
+{
+    "title": "Liste des administrateurs d'examen",
+    "option": "Ajouter un nouvel administrateur d'examen",
+    "name": "Nom",
+    "email": "Email",
+    "password": "Mot de passe",
+    "add": "Ajouter un administrateur d'examen"
+}

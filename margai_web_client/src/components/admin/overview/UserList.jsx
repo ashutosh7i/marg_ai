@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Mail, Plus, User } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function UserList({ title, userList = [] }) {
   const [visibleCount, setVisibleCount] = useState(3);
@@ -8,7 +9,7 @@ function UserList({ title, userList = [] }) {
   const handleViewMore = () => {
     setVisibleCount((prevCount) => prevCount + 5);
   };
-
+  const { t } = useTranslation("component-admin-overview-UserList");
   return (
     <div className="w-full rounded-3xl border bg-white shadow-md flex flex-col p-6 pb-4">
       <div className="flex items-center justify-between">
@@ -50,7 +51,7 @@ function UserList({ title, userList = [] }) {
           onClick={handleViewMore}
           className="text-sm font-bold text-[#125354]"
         >
-          View More
+          {t("label")}
         </button>
       )}
     </div>

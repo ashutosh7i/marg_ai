@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "react-i18next";
 
 function TeachersPage() {
   const [teachers, setTeachers] = useState([
@@ -53,25 +54,25 @@ function TeachersPage() {
     });
     setIsDrawerOpen(false);
   };
-
+  const { t } = useTranslation("pages-admin-teachers-page");
   return (
     <div className="h-screen">
       <Sidebar />
       <Header heading="Teachers" />
       <div className="ml-[16.975rem] bg-[#E8F9F9] h-full pb-8 flex-1 p-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Teachers List</h2>
+          <h2 className="text-2xl font-bold">{t("heading")}</h2>
           <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
             <DrawerTrigger asChild>
-              <Button>Add New Teacher</Button>
+              <Button>{t("add")}</Button>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Add New Teacher</DrawerTitle>
+                <DrawerTitle>{t("add")}</DrawerTitle>
               </DrawerHeader>
               <form onSubmit={handleAddTeacher} className="p-6 space-y-4">
                 <div>
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="name">{t("name")}</Label>
                   <Input
                     id="name"
                     type="text"
@@ -83,7 +84,7 @@ function TeachersPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t("email")}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -95,7 +96,7 @@ function TeachersPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="subject">Subject</Label>
+                  <Label htmlFor="subject">{t("subject")}</Label>
                   <Input
                     id="subject"
                     type="text"
@@ -107,7 +108,7 @@ function TeachersPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="address">Address</Label>
+                  <Label htmlFor="address">{t("address")}</Label>
                   <Input
                     id="address"
                     type="text"
@@ -118,7 +119,7 @@ function TeachersPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="contact">Contact</Label>
+                  <Label htmlFor="contact">{t("contact")}</Label>
                   <Input
                     id="contact"
                     type="text"
@@ -130,7 +131,7 @@ function TeachersPage() {
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  Add Teacher
+                  {t("addt")}
                 </Button>
               </form>
             </DrawerContent>
@@ -141,10 +142,10 @@ function TeachersPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Subject</TableHead>
-                <TableHead>Contact</TableHead>
+                <TableHead>{t("name")}</TableHead>
+                <TableHead>{t("email")}</TableHead>
+                <TableHead>{t("subject")}</TableHead>
+                <TableHead>{t("contact")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

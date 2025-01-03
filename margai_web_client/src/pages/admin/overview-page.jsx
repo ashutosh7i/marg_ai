@@ -7,6 +7,7 @@ import { adminExams, recentStudents } from "@/data/data";
 import ExamScheduleMessageCard from "@/components/admin/overview/ExamScheduleMessageCard";
 import UserList from "@/components/admin/overview/UserList";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import { useTranslation } from "react-i18next";
 
 const scoreDistribution = [
   { name: "0-20%", value: 5 },
@@ -19,13 +20,14 @@ const scoreDistribution = [
 const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"];
 
 function OverviewPage() {
+  const { t } = useTranslation("pages-admin-overview-page");
   return (
     <>
       <Sidebar />
 
       <div className="ml-[16.975rem] bg-[#E8F9F9] h-full pb-8">
         <header className="flex items-center justify-between px-10 py-6">
-          <h1 className="text-4xl font-bold text-[#00494A]">Overview</h1>
+          <h1 className="text-4xl font-bold text-[#00494A]">{t("heading")}</h1>
 
           <div className="flex items-center gap-12">
             <div className="flex items-center gap-3">
@@ -64,7 +66,7 @@ function OverviewPage() {
         <div className="grid grid-cols-2 gap-4 mx-4 mb-8">
           {/* Students Card */}
           <div className="w-full rounded-3xl border bg-white shadow-md p-6">
-            <h2 className="text-2xl font-bold text-[#125354] mb-4">Students</h2>
+            <h2 className="text-2xl font-bold text-[#125354] mb-4">{t("students")}</h2>
             <div className="flex justify-center z-20">
               <PieChart width={400} height={400}>
                 <Pie
@@ -92,8 +94,7 @@ function OverviewPage() {
             </div>
 
             <h3 className="text-center">
-              The Institution&apos;s high school students are performing better
-              than last two batches of your institute!!{" "}
+              {t("message")}{" "}
             </h3>
           </div>
 

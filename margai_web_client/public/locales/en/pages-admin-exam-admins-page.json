@@ -1,0 +1,8 @@
+{
+    "title": "Exam Admins List",
+    "option": "Add New Exam Admin",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "add": "Add Exam Admin"
+}

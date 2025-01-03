@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 function Banner() {
-  const { t } = useTranslation("overview-banner");
+  const { t } = useTranslation("component-teacher-overview-banner");
 
   return (
     <div className="grid h-[10.9375rem] grid-cols-[60%_40%] rounded-[1.25rem] bg-[#4D44B5] text-white mb-8">
